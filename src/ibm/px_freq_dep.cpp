@@ -1,5 +1,6 @@
 // Gillespie simulation 
-// for the evolution of age-dependent nongenetic effects
+// for the evolution of nongenetic effects
+// in a hawk-dove game
 
 #include <ctime>
 #include <iostream>
@@ -36,34 +37,16 @@ size_t generation = 0; // track the current generation (for debugging only)
 
 size_t skip2 = numgen; // intervals of data output
 
-double envt_switch[2] = {0,0}; // patch state switch rate
-double k = 0.001; // cost of dispersal
+double d = 0.1 // dispersal probability
 
-// mortality of maladapted junior breeders in both envts
-double c[2] = {0,0}; 
-
-// mortality of adapted junior breeders in both envts
-double C[2] = {0,0}; 
+double mh1 = 1.0; // mortality of hawks when in a patch with a dove
+double mh2 = 2.0; // mortality of hawks when in a patch with another hawk
+double md1 = 1.0; // mortality of dove when in a patch with a dove
+double md0 = 2.0; // mortality of dove when in a patch with another dove
 
 // mutation rates
 double mu_h = 0.01;
 double sdmu_h = 0.01;
-
-// diploid individuals
-struct Individual
-{
-    double d[2]; // one locus coding for migration
-    double p1[2]; // proportion z1 offspring by z1 junior
-    double p2[2]; // proportion z1 offspring by z2 junior
-    bool z; // state of the individual wrt its environment, 0, 1
-};
-
-struct Patch
-{
-    Individual locals[Npp]; // the local senior
-    bool state; //environmental state of the patch
-
-};
 
 Patch MetaPop[Npatch];
 

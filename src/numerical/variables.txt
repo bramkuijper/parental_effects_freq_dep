@@ -1,0 +1,33 @@
+double c1;
+double c2;
+double q1;
+double q2;
+double k;
+double mt;
+double s1;
+double s2;
+double Q;
+double p1;
+double p2;
+double fa0;
+double fa1;
+double fa2;
+double fb0;
+double fb1;
+double fb2;
+double v100;
+double v101;
+double v110;
+double v111;
+double v200;
+double v201;
+double v210;
+double v211;
+double raa12;
+double raa22;
+double ram11;
+double ram21;
+double rmm10;
+double rmm20;
+
+

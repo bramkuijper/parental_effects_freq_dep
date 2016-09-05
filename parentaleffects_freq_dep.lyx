@@ -1,0 +1,476 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\definecolor{darkblue}{RGB}{0,4,106}
+\usepackage{doi}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm}
+\allowdisplaybreaks
+\tikzset{test/.style={font=\sffamily\huge}}
+\DeclareMathVersion{sfnums}
+\usepackage{apjfonts}
+\end_preamble
+\options numbers,sort&compress
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "helvet" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\paperfontsize 12
+\spacing other 1.05
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 2
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "citecolor=darkblue,urlcolor=darkblue,linkcolor=darkblue"
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2.5cm
+\rightmargin 2.5cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Parental effects when selection is frequency-dependent
+\end_layout
+
+\begin_layout Author
+Bram Kuijper
+\begin_inset Formula $^{1,2,3,6}$
+\end_inset
+
+ & Rufus A.
+ Johnstone
+\begin_inset Formula $^{4,5,7}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Keywords:
+\end_layout
+
+\begin_layout Standard
+Epigenetics, Transgenerational plasticity, Maternal hormone, Extended inheritanc
+e, Nongenetic effect
+\end_layout
+
+\begin_layout Paragraph
+Affiliations:
+\end_layout
+
+\begin_layout Enumerate
+Environment and Sustainability Institute (ESI), College of Life and Environmenta
+l Sciences, University of Exeter, Penryn Campus, Penryn TR10 9EZ, UK
+\end_layout
+
+\begin_layout Enumerate
+CoMPLEX, Centre for Mathematics and Physics in the Life Sciences and Experimenta
+l Biology, University College London, Physics Building, Gower Street, London
+ WC1E 6BT, UK
+\end_layout
+
+\begin_layout Enumerate
+Department of Genetics, Evolution and Environment, University College London,
+ Darwin Building, Gower Street, London, WC1E 6BT
+\end_layout
+
+\begin_layout Enumerate
+XX
+\end_layout
+
+\begin_layout Enumerate
+YY
+\end_layout
+
+\begin_layout Enumerate
+a.l.w.kuijper@exeter.ac.uk
+\end_layout
+
+\begin_layout Enumerate
+r.b.hoyle@soton.ac.uk
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+I
+\end_layout
+
+\begin_layout Abstract
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Section
+The model
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Section
+Figure captions
+\end_layout
+
+\begin_layout Section
+Figures
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/home/bram/Projects/databases/transgenerational"
+options "evolution"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang british
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{equation}{0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{section}{0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{table}{0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{figure}{0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+theequation{S
+\backslash
+arabic{equation}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+theHequation{S
+\backslash
+arabic{equation}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+theHsection{S
+\backslash
+arabic{section}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+thesection{S
+\backslash
+arabic{section}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+theHfigure{S
+\backslash
+arabic{figure}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+theHtable{S
+\backslash
+arabic{table}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+thefigure{S
+\backslash
+arabic{figure}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand*
+\backslash
+thetable{S
+\backslash
+arabic{table}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\backslash
+LARGE{Parental effects when selection is frequency-dependent}
+\backslash
+vspace{.5cm}
+\backslash
+
+\backslash
+	 
+\backslash
+large{Bram Kuijper 
+\backslash
+& Rufus A.
+ Johnstone}
+\backslash
+
+\backslash
+ 
+\backslash
+Large{
+\backslash
+textbf{Online Supplement}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Online Supplement
+\end_layout
+
+\begin_layout Standard
+Following 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kuijper2016"
+
+\end_inset
+
+ we have
+\end_layout
+
+\begin_layout Subsection
+Patch frequency dynamics
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\frac{\mathrm{d}f_{0}}{\mathrm{d}t} & =m_{h,1}f_{1}\left(1-b_{h,1}\right)-2m_{d,0}f_{0}b_{h,0}\nonumber \\
+\frac{\mathrm{d}f_{1}}{\mathrm{d}t} & =2m_{d,0}f_{0}b_{h,0}+2m_{h,2}f_{2}\left(1-b_{h,2}\right)-m_{h,1}f_{1}\left(1-b_{h,1}\right)-m_{d,1}f_{1}b_{h,1}\nonumber \\
+\frac{\mathrm{d}f_{2}}{\mathrm{d}t} & =m_{d,1}f_{1}b_{h,1}-2m_{h,2}f_{2}\left(1-b_{h,2}\right).\label{eq:patch_frequency:dynamics}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $b_{h,i}$
+\end_inset
+
+ is the probability that a juvenile hawk successfully competes for the breeding
+ position vacated by the preceding mortality event, which is given by
+\begin_inset Formula 
+\begin{align}
+b_{h,i} & =\frac{1}{2}\left[(1-d)\left(ip_{h\rightarrow h,i}+\left(2-i\right)p_{d\rightarrow h,i}\right)+d\sum_{k=0}^{2}\left(kp_{h\rightarrow h,k}+\left(2-k\right)p_{d\rightarrow h,k}\right)\right].\label{eq:bhi}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Reproductive value dynamics
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\frac{\mathrm{d}v_{h,1}}{\mathrm{d}t} & =m_{h,1}f_{1}\left(1-d\right)\left(1-p_{h\rightarrow h,1}\right)\left(v_{d,0}-v_{h,1}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

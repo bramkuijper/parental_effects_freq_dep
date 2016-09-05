@@ -1,0 +1,195 @@
+numsolve2.cpp: In function ‘int psys_recur(void*, gsl_vector*)’:
+numsolve2.cpp:103:8: warning: unused variable ‘v100’ [-Wunused-variable]
+ double v100 = ((struct rparams *) params)->v100;
+        ^
+numsolve2.cpp:104:8: warning: unused variable ‘v101’ [-Wunused-variable]
+ double v101 = ((struct rparams *) params)->v101;
+        ^
+numsolve2.cpp:105:8: warning: unused variable ‘v110’ [-Wunused-variable]
+ double v110 = ((struct rparams *) params)->v110;
+        ^
+numsolve2.cpp:106:8: warning: unused variable ‘v111’ [-Wunused-variable]
+ double v111 = ((struct rparams *) params)->v111;
+        ^
+numsolve2.cpp:107:8: warning: unused variable ‘v200’ [-Wunused-variable]
+ double v200 = ((struct rparams *) params)->v200;
+        ^
+numsolve2.cpp:108:8: warning: unused variable ‘v201’ [-Wunused-variable]
+ double v201 = ((struct rparams *) params)->v201;
+        ^
+numsolve2.cpp:109:8: warning: unused variable ‘v210’ [-Wunused-variable]
+ double v210 = ((struct rparams *) params)->v210;
+        ^
+numsolve2.cpp:110:8: warning: unused variable ‘v211’ [-Wunused-variable]
+ double v211 = ((struct rparams *) params)->v211;
+        ^
+numsolve2.cpp:111:8: warning: unused variable ‘raa12’ [-Wunused-variable]
+ double raa12 = ((struct rparams *) params)->raa12;
+        ^
+numsolve2.cpp:112:8: warning: unused variable ‘raa22’ [-Wunused-variable]
+ double raa22 = ((struct rparams *) params)->raa22;
+        ^
+numsolve2.cpp:113:8: warning: unused variable ‘ram11’ [-Wunused-variable]
+ double ram11 = ((struct rparams *) params)->ram11;
+        ^
+numsolve2.cpp:114:8: warning: unused variable ‘ram21’ [-Wunused-variable]
+ double ram21 = ((struct rparams *) params)->ram21;
+        ^
+numsolve2.cpp:115:8: warning: unused variable ‘rmm10’ [-Wunused-variable]
+ double rmm10 = ((struct rparams *) params)->rmm10;
+        ^
+numsolve2.cpp:116:8: warning: unused variable ‘rmm20’ [-Wunused-variable]
+ double rmm20 = ((struct rparams *) params)->rmm20;
+        ^
+numsolve2.cpp: In function ‘int rvsys_recur(void*, gsl_vector*)’:
+numsolve2.cpp:214:8: warning: unused variable ‘raa12’ [-Wunused-variable]
+ double raa12 = ((struct rparams *) params)->raa12;
+        ^
+numsolve2.cpp:215:8: warning: unused variable ‘raa22’ [-Wunused-variable]
+ double raa22 = ((struct rparams *) params)->raa22;
+        ^
+numsolve2.cpp:216:8: warning: unused variable ‘ram11’ [-Wunused-variable]
+ double ram11 = ((struct rparams *) params)->ram11;
+        ^
+numsolve2.cpp:217:8: warning: unused variable ‘ram21’ [-Wunused-variable]
+ double ram21 = ((struct rparams *) params)->ram21;
+        ^
+numsolve2.cpp:218:8: warning: unused variable ‘rmm10’ [-Wunused-variable]
+ double rmm10 = ((struct rparams *) params)->rmm10;
+        ^
+numsolve2.cpp:219:8: warning: unused variable ‘rmm20’ [-Wunused-variable]
+ double rmm20 = ((struct rparams *) params)->rmm20;
+        ^
+numsolve2.cpp:298:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+numsolve2.cpp: In function ‘int relcoeff_recur(void*, gsl_vector*)’:
+numsolve2.cpp:321:8: warning: unused variable ‘v100’ [-Wunused-variable]
+ double v100 = ((struct rparams *) params)->v100;
+        ^
+numsolve2.cpp:322:8: warning: unused variable ‘v101’ [-Wunused-variable]
+ double v101 = ((struct rparams *) params)->v101;
+        ^
+numsolve2.cpp:323:8: warning: unused variable ‘v110’ [-Wunused-variable]
+ double v110 = ((struct rparams *) params)->v110;
+        ^
+numsolve2.cpp:324:8: warning: unused variable ‘v111’ [-Wunused-variable]
+ double v111 = ((struct rparams *) params)->v111;
+        ^
+numsolve2.cpp:325:8: warning: unused variable ‘v200’ [-Wunused-variable]
+ double v200 = ((struct rparams *) params)->v200;
+        ^
+numsolve2.cpp:326:8: warning: unused variable ‘v201’ [-Wunused-variable]
+ double v201 = ((struct rparams *) params)->v201;
+        ^
+numsolve2.cpp:327:8: warning: unused variable ‘v210’ [-Wunused-variable]
+ double v210 = ((struct rparams *) params)->v210;
+        ^
+numsolve2.cpp:328:8: warning: unused variable ‘v211’ [-Wunused-variable]
+ double v211 = ((struct rparams *) params)->v211;
+        ^
+numsolve2.cpp:398:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+numsolve2.cpp: In function ‘void selgrads(void*, gsl_vector*)’:
+numsolve2.cpp:409:8: warning: unused variable ‘s1’ [-Wunused-variable]
+ double s1 = ((struct rparams *) params)->s1;
+        ^
+numsolve2.cpp:410:8: warning: unused variable ‘s2’ [-Wunused-variable]
+ double s2 = ((struct rparams *) params)->s2;
+        ^
+numsolve2.cpp: In function ‘void write_params(void*)’:
+numsolve2.cpp:463:8: warning: unused variable ‘mt’ [-Wunused-variable]
+ double mt = ((struct rparams *) params)->mt;
+        ^
+numsolve2.cpp:467:8: warning: unused variable ‘p1’ [-Wunused-variable]
+ double p1 = ((struct rparams *) params)->p1;
+        ^
+numsolve2.cpp:468:8: warning: unused variable ‘p2’ [-Wunused-variable]
+ double p2 = ((struct rparams *) params)->p2;
+        ^
+numsolve2.cpp:469:8: warning: unused variable ‘fa0’ [-Wunused-variable]
+ double fa0 = ((struct rparams *) params)->fa0;
+        ^
+numsolve2.cpp:470:8: warning: unused variable ‘fa1’ [-Wunused-variable]
+ double fa1 = ((struct rparams *) params)->fa1;
+        ^
+numsolve2.cpp:471:8: warning: unused variable ‘fa2’ [-Wunused-variable]
+ double fa2 = ((struct rparams *) params)->fa2;
+        ^
+numsolve2.cpp:472:8: warning: unused variable ‘fb0’ [-Wunused-variable]
+ double fb0 = ((struct rparams *) params)->fb0;
+        ^
+numsolve2.cpp:473:8: warning: unused variable ‘fb1’ [-Wunused-variable]
+ double fb1 = ((struct rparams *) params)->fb1;
+        ^
+numsolve2.cpp:474:8: warning: unused variable ‘fb2’ [-Wunused-variable]
+ double fb2 = ((struct rparams *) params)->fb2;
+        ^
+numsolve2.cpp:475:8: warning: unused variable ‘v100’ [-Wunused-variable]
+ double v100 = ((struct rparams *) params)->v100;
+        ^
+numsolve2.cpp:476:8: warning: unused variable ‘v101’ [-Wunused-variable]
+ double v101 = ((struct rparams *) params)->v101;
+        ^
+numsolve2.cpp:477:8: warning: unused variable ‘v110’ [-Wunused-variable]
+ double v110 = ((struct rparams *) params)->v110;
+        ^
+numsolve2.cpp:478:8: warning: unused variable ‘v111’ [-Wunused-variable]
+ double v111 = ((struct rparams *) params)->v111;
+        ^
+numsolve2.cpp:479:8: warning: unused variable ‘v200’ [-Wunused-variable]
+ double v200 = ((struct rparams *) params)->v200;
+        ^
+numsolve2.cpp:480:8: warning: unused variable ‘v201’ [-Wunused-variable]
+ double v201 = ((struct rparams *) params)->v201;
+        ^
+numsolve2.cpp:481:8: warning: unused variable ‘v210’ [-Wunused-variable]
+ double v210 = ((struct rparams *) params)->v210;
+        ^
+numsolve2.cpp:482:8: warning: unused variable ‘v211’ [-Wunused-variable]
+ double v211 = ((struct rparams *) params)->v211;
+        ^
+numsolve2.cpp:483:8: warning: unused variable ‘raa12’ [-Wunused-variable]
+ double raa12 = ((struct rparams *) params)->raa12;
+        ^
+numsolve2.cpp:484:8: warning: unused variable ‘raa22’ [-Wunused-variable]
+ double raa22 = ((struct rparams *) params)->raa22;
+        ^
+numsolve2.cpp:485:8: warning: unused variable ‘ram11’ [-Wunused-variable]
+ double ram11 = ((struct rparams *) params)->ram11;
+        ^
+numsolve2.cpp:486:8: warning: unused variable ‘ram21’ [-Wunused-variable]
+ double ram21 = ((struct rparams *) params)->ram21;
+        ^
+numsolve2.cpp:487:8: warning: unused variable ‘rmm10’ [-Wunused-variable]
+ double rmm10 = ((struct rparams *) params)->rmm10;
+        ^
+numsolve2.cpp:488:8: warning: unused variable ‘rmm20’ [-Wunused-variable]
+ double rmm20 = ((struct rparams *) params)->rmm20;
+        ^
+numsolve2.cpp: In function ‘void write_data(void*, int)’:
+numsolve2.cpp:510:8: warning: unused variable ‘c1’ [-Wunused-variable]
+ double c1 = ((struct rparams *) params)->c1;
+        ^
+numsolve2.cpp:511:8: warning: unused variable ‘c2’ [-Wunused-variable]
+ double c2 = ((struct rparams *) params)->c2;
+        ^
+numsolve2.cpp:512:8: warning: unused variable ‘q1’ [-Wunused-variable]
+ double q1 = ((struct rparams *) params)->q1;
+        ^
+numsolve2.cpp:513:8: warning: unused variable ‘q2’ [-Wunused-variable]
+ double q2 = ((struct rparams *) params)->q2;
+        ^
+numsolve2.cpp:514:8: warning: unused variable ‘k’ [-Wunused-variable]
+ double k = ((struct rparams *) params)->k;
+        ^
+numsolve2.cpp:516:8: warning: unused variable ‘s1’ [-Wunused-variable]
+ double s1 = ((struct rparams *) params)->s1;
+        ^
+numsolve2.cpp:517:8: warning: unused variable ‘s2’ [-Wunused-variable]
+ double s2 = ((struct rparams *) params)->s2;
+        ^
+numsolve2.cpp:518:8: warning: unused variable ‘Q’ [-Wunused-variable]
+ double Q = ((struct rparams *) params)->Q;
+        ^

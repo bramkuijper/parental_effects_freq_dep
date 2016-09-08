@@ -17,8 +17,6 @@ class Inserter:
     # specify the filenames containing the exports
     # from Mathematica
     filename_precur = "patchrecurs.txt" # patch frequency recursions
-    filename_repval = "rvals.txt" # the recursions of the reproductive values
-    filename_related = "relatedness.txt" # the relatedness coefficients
     filename_selgrads = "selgrad.txt" # the selection gradients
     filename_vars= "variables.txt" # a file containing all the variables used
     filename_params = "params.txt" # a file containing all the variables used
@@ -26,19 +24,13 @@ class Inserter:
     # a list of regular expressions to transform Mathematica-expressions
     # to their C equivalents
     relist = [
-            "f\((\d+),(\d+)\)",\
-            "ftplus1\((\d+),(\d+)\)",\
-            "r([am]{2,2})\((\d),(\d)\)",\
-            "r([am]{2,2})tplus1\((\d),(\d)\)",\
-            "v\((\d),(\d),(\d)\)",\
-            "vtplus1\((\d),(\d),(\d)\)",\
+            "f\((\d+)\)",\
+            "md\((\d+)\)",\
+            "mh\((\d+)\)",\
             "Power", "Sqrt"]
-    sollist = ["f_\\1_\\2",\
-            "ftplus1_\\1_\\2",\
-            "r_\\1_\\2_\\3",\
-            "rtplus1_\\1_\\2_\\3",\
-            "v_\\1_\\2_\\3",\
-            "vtplus1_\\1_\\2_\\3",\
+    sollist = ["f_\\1",\
+            "md_\\1",\
+            "mh_\\1",\
             "pow", "sqrt"];
 
     # replaces all the Mathematica variables in the file filename
@@ -88,6 +80,9 @@ class Inserter:
         return(strfile)
 
     # generate the contents of the write params function
+    # which writes the parameters to the file once the iteration
+    # is done
+    #
     # arguments: strvars - \n-separated string with all the variables
     # strfile: 
     def make_write_params_function(self, strparams, strfile):
@@ -184,8 +179,6 @@ class Inserter:
 
         # transform all the files
         str_precur = self.transform(self.filename_precur)
-        str_repval = self.transform(self.filename_repval)
-        str_related = self.transform(self.filename_related)
         str_selgrads = self.transform(self.filename_selgrads)
         str_vars = self.transform(self.filename_vars)
         str_params = self.transform(self.filename_params)
@@ -197,9 +190,6 @@ class Inserter:
         # put the contents of each of the Mathematica
         # file at their respective positions indicated in the c++ file
         cpp_f_str = re.sub("PATCHRECUR","\n" + str_precur,cpp_f_str)
-#        cpp_f_str = re.sub("EVMAT","\n" + str_ev,cpp_f_str)
-        cpp_f_str = re.sub("REPVALRECUR","\n" + str_repval,cpp_f_str)
-        cpp_f_str = re.sub("RELRECUR","\n" + str_related,cpp_f_str)
         cpp_f_str = re.sub("SELGRADS","\n" + str_selgrads,cpp_f_str)
 
         # insert variable definitions

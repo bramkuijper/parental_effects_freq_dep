@@ -1,0 +1,7 @@
+double d;
+double v;
+double c;
+double f(0);
+double f(1);
+double pdh;
+double phh;

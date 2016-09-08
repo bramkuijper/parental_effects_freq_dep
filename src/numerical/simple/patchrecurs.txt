@@ -1,0 +1,28 @@
+
+double df0dt = 0;
+
+double df1dt = 0;
+
+for (int rtime=0;rtime<1e7;++rtime)
+{
+
+ df0dt=f(0) + 0.01*(-((1 - v/2.)*f(0)*(2*(1 - d)*pdh + d*(2*pdh*f(0) + 2*phh*(1 - f(0) - f(1)) + (pdh + phh)*f(1)))) + (1 - v)*f(1)*(1 + (-((1 - d)*(pdh + phh)) - d*(2*pdh*f(0) + 2*phh*(1 - f(0) - f(1)) + (pdh + phh)*f(1)))/2.));
+
+df1dt=f(1) + 0.01*((1 - v/2.)*f(0)*(2*(1 - d)*pdh + d*(2*pdh*f(0) + 2*phh*(1 - f(0) - f(1)) + (pdh + phh)*f(1))) - (f(1)*((1 - d)*(pdh + phh) + d*(2*pdh*f(0) + 2*phh*(1 - f(0) - f(1)) + (pdh + phh)*f(1))))/2. + 2*(1 + c/2. - v/2.)*(1 - f(0) - f(1))*(1 + (-2*(1 - d)*phh - d*(2*pdh*f(0) + 2*phh*(1 - f(0) - f(1)) + (pdh + phh)*f(1)))/2.) - (1 - v)*f(1)*(1 + (-((1 - d)*(pdh + phh)) - d*(2*pdh*f(0) + 2*phh*(1 - f(0) - f(1)) + (pdh + phh)*f(1)))/2.));
+
+if (fabs(df0dt-f(0))<1e-7 && fabs(df1dt-f(1))<1e-7)
+{
+
+f(0)=bound(df0dt);
+
+f(1)=bound(df1dt);
+
+break;
+}
+f(0)=bound(df0dt);
+
+f(1)=bound(df1dt);
+
+}
+gsl_vector_set(f,0,df0dt);
+gsl_vector_set(f,1,df1dt);

@@ -1,6 +1,7 @@
 // Gillespie simulation 
 // for the evolution of nongenetic effects
 // in a hawk-dove game
+// (c) Bram Kuijper 2016
 
 #include <ctime>
 #include <iostream>
@@ -26,16 +27,17 @@ gsl_rng *r; // gnu scientific rng
 
 const size_t Npatch = 4000; 
 const size_t Npp = 2;
-const size_t numgen = 40000;
+unsigned long int NumGen = 1e20; // maximum number of generations
 int sample = 20;
 double d0 = 0.01; //some starting values
 double h0 = 0.01;
 
 int seed = -1; // the random seed
 time_t total_time;  // track the total time the simulation is running
-size_t generation = 0; // track the current generation (for debugging only)
+unsigned long int generation = 0; // track the current generation 
 
-size_t skip2 = numgen; // intervals of data output
+// output once every 10^6 generations
+unsigned long int skip = 1e6;
 
 double d = 0.1 // dispersal probability
 
@@ -48,15 +50,20 @@ double md0 = 2.0; // mortality of dove when in a patch with another dove
 double mu_h = 0.01;
 double sdmu_h = 0.01;
 
+struct Patch {
+    Individual locals[Npp];
+};
+
+
 Patch MetaPop[Npatch];
 
-
 // statistics for sampling
-// number of patches in environment one or two
-// with 0, 1 or 2 maladapted individuals
-size_t Npatches[2][3];
-// next to counts store lists with ids
-size_t patch_ids[2][3][Npatch];
+// with 0, 1 or 2 hawks 
+size_t Npatches[3];
+
+// next to counts store lists with the ids
+// of the corresponding patches
+size_t patch_ids[3][Npatch];
 
 // give the outputfile a unique name
 string filename("sim_px");
@@ -67,17 +74,9 @@ ofstream DataFile(filename_new.c_str());  // output file
 // the parameters
 void init_arguments(int argc, char *argv[])
 {
-    envt_switch[0] = atof(argv[1]);
-    envt_switch[1] = atof(argv[2]);
-    c[0] = atof(argv[3]);
-    c[1] = atof(argv[4]);
-    C[0] = atof(argv[5]);
-    C[1] = atof(argv[6]);
-    k = atof(argv[7]);
-    mu_h = atof(argv[8]);
-    sdmu_h = atof(argv[9]);
-    d0 = atof(argv[10]);
-    h0 = atof(argv[11]);
+    d = atof(argv[1]);
+    v = atof(argv[2]);
+    c = atof(argv[3]);
 }
 
 // initialization function, runs at start of sim
@@ -91,70 +90,60 @@ void init_pop()
     // obtain a seed from current nanosecond count
 	seed = get_nanoseconds();
 
-    // set the seed to the random number generator
-    // stupidly enough, this can only be done by setting
-    // a shell environment parameter
-    stringstream s;
-    s << "GSL_RNG_SEED=" << setprecision(10) << seed;
-    putenv(const_cast<char *>(s.str().c_str()));
-
     // set up the random number generators
     // (from the gnu gsl library)
     gsl_rng_env_setup();
     T = gsl_rng_default;
     r = gsl_rng_alloc(T);
+    gsl_rng_set(r, seed);
 
     // initialize patch state counters and set them to 0
-    for (int envt_i = 0; envt_i < 2; ++envt_i)
+    for (int n_hawk = 0; n_hawk <= 2; ++n_hawk)
     {
-        for (int n_adapted = 0; n_adapted <= 2; ++n_adapted)
-        {
-            Npatches[envt_i][n_adapted] = 0;
-        }
+        Npatches[n_hawk] = 0;
     }
 
-    size_t n_adapted;
+    size_t n_hawk;
 
     // initialize all the patches
     for (size_t i = 0; i < Npatch; ++i)
     {
-        //patches are randomly put in env + or -
-        MetaPop[i].state = gsl_rng_uniform(r) < 0.5; 
-    
-        n_adapted = 0;
+        n_hawk = 0;
 
         //initialize breeders
         for (size_t j = 0; j < Npp; ++j)
         {
-            // randomly assign initial phenotypes
-            MetaPop[i].locals[j].z = gsl_rng_uniform(r) < 0.5;
-
-            if (MetaPop[i].locals[j].z == MetaPop[i].state)
+            if (gsl_rng_uniform(r) < 0.5)
             {
-                ++n_adapted;
+                // randomly assign initial phenotypes
+                MetaPop[i].locals[j].hawk = true;
+                ++n_hawk
             }
-        
+            else
+            {
+                // randomly assign initial phenotypes
+                MetaPop[i].locals[j].hawk = false;
+            }
+
             // initialize allelic values
             for (int allele = 0; allele < 2; ++allele)
             {
-                MetaPop[i].locals[j].d[allele] = d0;
-                MetaPop[i].locals[j].p1[allele] = h0;
-                MetaPop[i].locals[j].p2[allele] = h0;
+                MetaPop[i].locals[j].phh[allele] = h0;
+                MetaPop[i].locals[j].pdh[allele] = h0;
             }
         }
 
-        // increase the counter of patches of
-        // (i) environmental state 'state'
-        // (iii) containing n_adapted individuals
+        // increase the counter of patches 
+        // containing n_hawk individuals
         //
         size_t Npatches_of_this_type = 
-            Npatches[MetaPop[i].state][n_adapted];
+            Npatches[n_hawk];
 
         // append this patch to the corresponding stack of patch id's
-        patch_ids[MetaPop[i].state][n_adapted][Npatches_of_this_type] = i;
+        patch_ids[n_hawk][Npatches_of_this_type] = i;
 
         // update counter
-        ++Npatches[MetaPop[i].state][n_adapted];
+        ++Npatches[n_hawk];
     }
 }
 
@@ -173,25 +162,23 @@ double mut_h(double p)
 // or to pool of dispersers
 void create_kid(Individual &mother, Individual &Kid)
 {
-    // if it is a phenotype 1 mother, 
-    // we'll need to express p1
-    // otherwise p2
-    double expr_h;
+    // if it is a hawk mother, 
+    // we'll need to express phh
+    // otherwise pdh
 
     // mother's phenotype is one
-    expr_h = mother.z == 0 ? 0.5 * (mother.p1[0] + mother.p1[1]) 
+    double expr_h = mother.hawk ? 0.5 * (mother.phh[0] + mother.phh[1]) 
                                 :
-                                0.5 * (mother.p2[0] + mother.p2[1]);
+                                0.5 * (mother.pdh[0] + mother.pdh[1]);
 
-    // offspring gets z1 or z2 phenotype
-    Kid.z = gsl_rng_uniform(r) < expr_h ? 0 : 1;
+    // offspring gets hawk or dove phenotype
+    Kid.hawk = gsl_rng_uniform(r) < expr_h;
 
     // inherit alleles
     for (int allele_i = 0; allele_i < 2; ++allele_i)
     {
-        Kid.d[allele_i] = mut_h(mother.d[allele_i]);
-        Kid.p1[allele_i] = mut_h(mother.p1[allele_i]);
-        Kid.p2[allele_i] = mut_h(mother.p2[allele_i]);
+        Kid.phh[allele_i] = mut_h(mother.phh[allele_i]);
+        Kid.pdh[allele_i] = mut_h(mother.pdh[allele_i]);
     }
 }
 
@@ -199,14 +186,11 @@ void create_kid(Individual &mother, Individual &Kid)
 void write_data()
 {
     // get variance and means
-    double p1,p2,d,vard,varp1,varp2;
-    double meanp1 = 0;
-    double meanp2 = 0;
-    double ssp1 = 0;
-    double ssp2 = 0;
-
-    double meand = 0;
-    double ssd = 0;
+    double phh,pdh,d,vard,varphh,varpdh;
+    double meanphh = 0;
+    double meanpdh = 0;
+    double ssphh = 0;
+    double sspdh = 0;
 
     // loop through patches and individuals
     // and get stats on genotypes and patch freqs.
@@ -214,44 +198,35 @@ void write_data()
     {
         for (size_t j = 0; j < Npp; ++j)
         {
-            d = 0.5 * (MetaPop[i].locals[j].d[0] + MetaPop[i].locals[j].d[1]);
-            p1 = 0.5 * (MetaPop[i].locals[j].p1[0] + MetaPop[i].locals[j].p1[1]);
-            p2 = .5 * (MetaPop[i].locals[j].p2[0] + MetaPop[i].locals[j].p2[1]);
+            phh = 0.5 * (MetaPop[i].locals[j].phh[0] + MetaPop[i].locals[j].phh[1]);
+            pdh = .5 * (MetaPop[i].locals[j].pdh[0] + MetaPop[i].locals[j].pdh[1]);
 
-            meanp1+=p1;
-            meanp2+=p2;
-            meand+=d;
-            ssp1+=p1*p1;
-            ssp2+=p2*p2;
-            ssd+=d*d;
+            meanphh+=phh;
+            meanpdh+=pdh;
+            ssphh+=phh*phh;
+            sspdh+=pdh*pdh;
         }    
     }
 
     DataFile << generation << ";"; 
 
     // write down all the patch frequency combinations
-    for (size_t envt_i = 0; envt_i < 2; ++envt_i)
+    for (size_t n_hawk = 0; n_hawk <= 2; ++n_hawk)
     {
-        for (size_t n_adapted = 0; n_adapted <= 2; ++n_adapted)
-        {
-            DataFile << setprecision(5) << (double)Npatches[envt_i][n_adapted] / Npatch << ";";
-        }
+        DataFile << setprecision(5) 
+            << (double)Npatches[n_hawk] / Npatch << ";";
     }
 
-    meanp1 /= Npatch * 2;
-    meanp2 /= Npatch * 2;
-    meand /= Npatch * 2;
-    vard = ssd / (Npatch * 2) - meand*meand;
-    varp1 = ssp1 / (Npatch * 2) - meanp1*meanp1;
-    varp2 = ssp2 / (Npatch * 2) - meanp2*meanp2;
+    meanphh /= Npatch * 2;
+    meanpdh /= Npatch * 2;
+    varphh = ssphh / (Npatch * 2) - meanphh*meanphh;
+    varpdh = sspdh / (Npatch * 2) - meanpdh*meanpdh;
 
     DataFile 
-        << setprecision(5) << meanp1 << ";"
-        << setprecision(5) << meanp2 << ";"
-        << setprecision(5) << varp1 << ";"
-        << setprecision(5) << varp2 << ";"
-        << setprecision(5) << meand << ";"
-        << setprecision(5) << vard << endl;
+        << setprecision(5) << meanphh << ";"
+        << setprecision(5) << meanpdh << ";"
+        << setprecision(5) << varphh << ";"
+        << setprecision(5) << varpdh << ";" << endl;
 }
 
 // headers of the datafile
@@ -259,143 +234,63 @@ void write_data_headers()
 {
     DataFile << "generation;";
 
-    for (size_t envt_i = 0; envt_i < 2; ++envt_i)
+    for (size_t n_hawk = 0; n_hawk <= 2; ++n_hawk)
     {
-        for (size_t n_adapted = 0; n_adapted <= 2; ++n_adapted)
-        {
-            DataFile << setprecision(5) << "f_" << (envt_i+1) << "_" << (n_adapted + 1) << ";";
-        }
+        DataFile << setprecision(5) << "f_" << (n_hawk + 1) << ";";
     }
     
-    DataFile << "meanp1;meanp2;varp1;varp2;meand;vard" << endl;
+    DataFile << "meanphh;meanpdh;varphh;varphd;" << endl;
 }
 
 // parameters at the end of the sim
 void write_parameters()
 {
     total_time = time(NULL) - total_time;
-    DataFile << endl << endl << "d0;" << d0 << endl
-                << "type;" << "phenotype-dependent" << endl
-                << "p0;" << h0 << endl
+    DataFile << endl << endl 
+                << "d;" << d << endl
+                << "v;" << v << endl
+                << "c;" << c << endl
                 << "mu_h;" << mu_h << endl
                 << "sdmu_h;" << sdmu_h << endl
-                << "numgen;" << numgen << endl
-                << "k;" << k << endl
-                << "s1;" << envt_switch[0] << endl
-                << "s2;" << envt_switch[1] << endl
-                << "c1;" << c[0] << endl
-                << "c2;" << c[1] << endl
-                << "C1;" << C[0] << endl
-                << "C2;" << C[1] << endl
+                << "NumGen;" << NumGen << endl
                 << "seed;" << seed << endl
                 << "Npatches;" << Npatches << endl
                 << "runtime;" << total_time << endl;
 }
 
-void switch_patch_state(size_t patch_envt, size_t n_adapted)
-{
-    // sample a random patch that fulfills the conditions
-    size_t random_patch = 
-        gsl_rng_uniform_int(r, 
-            Npatches[patch_envt][n_adapted]
-        );
 
-    // get the patch_id 
-    size_t random_patch_id = 
-        patch_ids[patch_envt][n_adapted][random_patch];
-
-    // error checking
-    assert(MetaPop[random_patch_id].state == patch_envt);
-   
-#ifndef NDEBUG
-    size_t n_adapted_check = 0;
-
-    for (size_t breeder_i = 0; breeder_i < Npp; ++breeder_i)
-    {
-        n_adapted_check += MetaPop[random_patch_id].locals[breeder_i].z 
-            == MetaPop[random_patch_id].state;
-    }
-
-    assert(n_adapted_check == n_adapted);
-#endif
-
-    // update patch characteristics
-    bool patch_envt_new = !MetaPop[random_patch_id].state;
-    MetaPop[random_patch_id].state = patch_envt_new;
-        
-        
-
-    size_t n_adapted_new = Npp - n_adapted; 
-
-    // update statistics
-    //
-    // delete patch id in the corresponding stack
-    // by replacing it with the last patch id in the stack
-    // and then deleting the last element (by reducing the counter by 1)
-    patch_ids[patch_envt][n_adapted][random_patch] =
-        patch_ids[patch_envt][n_adapted][
-            --Npatches[patch_envt][n_adapted] 
-        ];
-
-    // add patch id to the correct stack
-    patch_ids[patch_envt_new][n_adapted_new][
-        Npatches[patch_envt_new][n_adapted_new]++
-    ] = random_patch_id;
-    
-    // error checking
-    assert(MetaPop[random_patch_id].state == !patch_envt);
-   
-#ifndef NDEBUG
-    n_adapted_check = 0;
-
-    for (size_t breeder_i = 0; breeder_i < Npp; ++breeder_i)
-    {
-        n_adapted_check += MetaPop[random_patch_id].locals[breeder_i].z 
-            == MetaPop[random_patch_id].state;
-    }
-
-    assert(n_adapted_check == n_adapted_new);
-#endif
-}
-
-// mortality of an individual in one of the patches in state 
-// patch envt
+// mortality of an individual in one of the patches 
 //
-// size_t patch_envt: the environment of the patch the mortality event took place in
-// size_t n_adapted: a patch containing n_adapted adapted individuals
+// size_t n_hawk: a patch containing n_hawk adapted individuals
 // bool mortality_maladapted: true, maladapted guy dies; false, adapted guy dies;
 
-void mortality(size_t patch_envt, size_t n_adapted, bool mortality_maladapted)
+void mortality(size_t patch_envt, size_t n_hawk, bool mortality_hawk)
 {
     // sample a random patch that fulfills the conditions
     size_t random_patch = 
         gsl_rng_uniform_int(r, 
-            Npatches[patch_envt][n_adapted]
+            Npatches[n_hawk]
         );
 
     // get the patch_id 
     size_t random_patch_id = 
-        patch_ids[patch_envt][n_adapted][random_patch];
+        patch_ids[n_hawk][random_patch];
 
     // error checking
-    assert(MetaPop[random_patch_id].state == patch_envt);
-   
 #ifndef NDEBUG
-    size_t n_adapted_check = 0;
+    size_t n_hawk_check = 0;
 
     for (size_t breeder_i = 0; breeder_i < Npp; ++breeder_i)
     {
-        n_adapted_check += MetaPop[random_patch_id].locals[breeder_i].z 
-            == MetaPop[random_patch_id].state;
+        n_hawk_check += MetaPop[random_patch_id].locals[breeder_i].hawk; 
     }
 
-    assert(n_adapted_check == n_adapted);
+    assert(n_hawk_check == n_hawk);
 #endif
 
     // fecundity selection absent
     // so whether we get immigrant 
     // only depends on dispersal probability
-    
     size_t sampled = Npp + sample;
 
     // array to store in cumulative distribution over all sampled
@@ -413,44 +308,24 @@ void mortality(size_t patch_envt, size_t n_adapted, bool mortality_maladapted)
     size_t mortality_candidate_ids[Npp];
     size_t n_mortality_candidates = 0;
 
-
     double sumprob = 0;
     double d = 0;
 
-    // make cumulative distribution of local competitive
-    // ability over the locals (as dispersal is the only
-    // trait affecting local competition just make a cumul
-    // distribution of dispersal probabilities
-    //
     // at the same time calculate which local breeders
     // might die
     for (size_t local_i = 0; local_i < Npp; ++local_i)
     {
-        // calculate a local offspring's dispersal
-        // capability
-        d = 0.5 * (
-                MetaPop[random_patch_id].locals[local_i].d[0] + 
-                MetaPop[random_patch_id].locals[local_i].d[1]
-                );
-
-        // store the data
-        patch_origin[local_i] = random_patch_id;
-        individual_ids[local_i] = local_i;
-
-        // store the cumulative distribution
-        choose_prob[local_i] = sumprob + 1-d;
-        sumprob = choose_prob[local_i];
-
         // store the mortality candidates
+        //
+        // mortality hawk
         if (
-                (mortality_maladapted && 
-                    MetaPop[random_patch_id].locals[local_i].z 
-                        != MetaPop[random_patch_id].state
+                (
+                 mortality_hawk && 
+                    MetaPop[random_patch_id].locals[local_i].hawk 
                 )
                 ||
-                (!mortality_maladapted && 
-                    MetaPop[random_patch_id].locals[local_i].z 
-                        == MetaPop[random_patch_id].state
+                (!mortality_hawk && 
+                    !MetaPop[random_patch_id].locals[local_i].hawk 
                 )
 
             )
@@ -459,61 +334,12 @@ void mortality(size_t patch_envt, size_t n_adapted, bool mortality_maladapted)
         }
     }
 
-    // do some weighing of the dispersers
-    double pi = 2.0 / sample;
 
-    size_t id = 0;
-
-    // make cumulative distribution over all sampled remote offspring
-    // mimicking competition for breeding spots
-    for (size_t remote_i = Npp; remote_i < sampled; ++remote_i)
-    {
-        // randomly pick patch
-        patch_origin[remote_i] = gsl_rng_uniform_int(r,Npatch);
-
-        // randomly pick individual within patch
-        id = gsl_rng_uniform_int(r,Npp);
-
-        individual_ids[remote_i] = id;
-
-        // store individual id
-        individual_ids[remote_i] = id;
-
-        d =  0.5 * (
-                        MetaPop[patch_origin[remote_i]].locals[id].d[0] + 
-                        MetaPop[patch_origin[remote_i]].locals[id].d[1]
-                        );
-
-        choose_prob[remote_i] = sumprob + (1-k) * pi * d;
-        sumprob = choose_prob[remote_i];
-    }
-
-    double deviate = gsl_rng_uniform(r) * sumprob;
-
-    Individual Kid;
-
-    bool kid_created = false;
-
-    for (size_t i = 0; i < sampled; ++i)
-    {
-        if (deviate <= choose_prob[i])
-        {
-            assert(individual_ids[i] >= 0 && individual_ids[i] < Npp);
-            assert(patch_origin[i] >= 0 && patch_origin[i] < Npatch);
-            kid_created = true;
-
-            create_kid(
-                    MetaPop[patch_origin[i]].locals[individual_ids[i]],
-                    Kid);
-            break;
-        }
-    }
-
-    assert(kid_created);
+    // now perform mortality and sample recruit
 
     // keep track of new state variables
-    // to update counters (see below)
-    size_t n_adapted_new = n_adapted;
+    // to update patch type statistics and counters (see below)
+    size_t n_hawk = n_hawk;
 
     // then mortality 
     assert(n_mortality_candidates > 0 && n_mortality_candidates <= Npp);
@@ -525,27 +351,42 @@ void mortality(size_t patch_envt, size_t n_adapted, bool mortality_maladapted)
     assert(candidate_id >= 0 && candidate_id < Npp);
 
     assert(
-            (!mortality_maladapted &&
-            MetaPop[random_patch_id].locals[candidate_id].z ==
-            MetaPop[random_patch_id].state
+            (mortality_hawk &&
+            MetaPop[random_patch_id].locals[candidate_id].hawk 
             )
             ||
-            (mortality_maladapted &&
-            MetaPop[random_patch_id].locals[candidate_id].z !=
-            MetaPop[random_patch_id].state
+            (!mortality_hawk &&
+            !MetaPop[random_patch_id].locals[candidate_id].hawk 
             )
     );
 
-    if (!mortality_maladapted)
+    if (mortality_hawk)
     {
-        --n_adapted_new;
+        --n_hawk_new;
+    }
+
+
+    // make new Kid
+    Individual Kid;
+
+    // sample local kid
+    if (gsl_rng_uniform(r) < d)
+    {
+        create_kid(MetaPop[random_patch_id].locals[gsl_rng_uniform_int(r, Npp)],
+                Individual);
+    }
+    else
+    {
+        // birth from a remote parent
+        create_kid(MetaPop[gsl_rng_uniform_int(r, Npatches)].locals[
+                gsl_rng_uniform_int(r, Npp)
+                ], Individual);
     }
 
     // mortality and replacement
     MetaPop[random_patch_id].locals[candidate_id] = Kid;
 
-    if (MetaPop[random_patch_id].locals[candidate_id].z ==
-            MetaPop[random_patch_id].state)
+    if (MetaPop[random_patch_id].locals[candidate_id].hawk)    
     {
         ++n_adapted_new;
     }
@@ -555,30 +396,27 @@ void mortality(size_t patch_envt, size_t n_adapted, bool mortality_maladapted)
     // delete patch id in the corresponding stack
     // by replacing it with the last patch id in the stack
     // and then deleting the last element (by reducing the counter by 1)
-    patch_ids[patch_envt][n_adapted][random_patch] =
-        patch_ids[patch_envt][n_adapted][
-            --Npatches[patch_envt][n_adapted] 
+    patch_ids[n_hawk][random_patch] =
+        patch_ids[n_hawk][
+            --Npatches[n_hawk] 
         ];
 
     // add patch id to the correct stack
-    patch_ids[patch_envt][n_adapted_new][
-        Npatches[patch_envt][n_adapted_new]++
+    patch_ids[n_adapted_new][
+        Npatches[n_adapted_new]++
     ] = random_patch_id;
 
     // we're done.
     // error checking
-    assert(MetaPop[random_patch_id].state == patch_envt);
-
 #ifndef NDEBUG
-    n_adapted_check = 0;
+    n_hawk_check = 0;
 
     for (size_t breeder_i = 0; breeder_i < Npp; ++breeder_i)
     {
-        n_adapted_check += MetaPop[random_patch_id].locals[breeder_i].z 
-            == MetaPop[random_patch_id].state;
+        n_hawk += MetaPop[random_patch_id].locals[breeder_i].hawk; 
     }
 
-    assert(n_adapted_check == n_adapted_new);
+    assert(n_hawk_check == n_adapted_new);
 #endif
 }
 

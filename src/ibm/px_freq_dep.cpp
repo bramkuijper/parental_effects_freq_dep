@@ -27,10 +27,10 @@ gsl_rng *r; // gnu scientific rng
 
 const size_t Npatch = 4000; 
 const size_t Npp = 2;
-unsigned long int NumGen = 1e20; // maximum number of generations
+unsigned long int NumGen = 1e18; // maximum number of generations
 int sample = 20;
-double d0 = 0.01; //some starting values
-double h0 = 0.01;
+
+double h0 = 0.5;
 
 int seed = -1; // the random seed
 time_t total_time;  // track the total time the simulation is running
@@ -39,16 +39,23 @@ unsigned long int generation = 0; // track the current generation
 // output once every 10^6 generations
 unsigned long int skip = 1e6;
 
-double d = 0.1 // dispersal probability
+double d = 0.1; // dispersal probability
+double v = 0.1;
+double c = 0.1;
 
-double mh1 = 1.0; // mortality of hawks when in a patch with a dove
-double mh2 = 2.0; // mortality of hawks when in a patch with another hawk
-double md1 = 1.0; // mortality of dove when in a patch with a dove
-double md0 = 2.0; // mortality of dove when in a patch with another dove
 
 // mutation rates
 double mu_h = 0.01;
 double sdmu_h = 0.01;
+
+struct Individual {
+
+    double phh[2];
+    double pdh[2];
+
+    bool hawk;
+
+};
 
 struct Patch {
     Individual locals[Npp];
@@ -77,6 +84,7 @@ void init_arguments(int argc, char *argv[])
     d = atof(argv[1]);
     v = atof(argv[2]);
     c = atof(argv[3]);
+    h0 = atof(argv[4]);
 }
 
 // initialization function, runs at start of sim
@@ -117,7 +125,7 @@ void init_pop()
             {
                 // randomly assign initial phenotypes
                 MetaPop[i].locals[j].hawk = true;
-                ++n_hawk
+                ++n_hawk;
             }
             else
             {
@@ -186,7 +194,7 @@ void create_kid(Individual &mother, Individual &Kid)
 void write_data()
 {
     // get variance and means
-    double phh,pdh,d,vard,varphh,varpdh;
+    double phh,pdh,varphh,varpdh;
     double meanphh = 0;
     double meanpdh = 0;
     double ssphh = 0;
@@ -236,7 +244,7 @@ void write_data_headers()
 
     for (size_t n_hawk = 0; n_hawk <= 2; ++n_hawk)
     {
-        DataFile << setprecision(5) << "f_" << (n_hawk + 1) << ";";
+        DataFile << setprecision(5) << "f_" << (n_hawk) << ";";
     }
     
     DataFile << "meanphh;meanpdh;varphh;varphd;" << endl;
@@ -254,7 +262,7 @@ void write_parameters()
                 << "sdmu_h;" << sdmu_h << endl
                 << "NumGen;" << NumGen << endl
                 << "seed;" << seed << endl
-                << "Npatches;" << Npatches << endl
+                << "Npatches;" << Npatch << endl
                 << "runtime;" << total_time << endl;
 }
 
@@ -264,7 +272,7 @@ void write_parameters()
 // size_t n_hawk: a patch containing n_hawk adapted individuals
 // bool mortality_maladapted: true, maladapted guy dies; false, adapted guy dies;
 
-void mortality(size_t patch_envt, size_t n_hawk, bool mortality_hawk)
+void mortality(size_t n_hawk, bool mortality_hawk)
 {
     // sample a random patch that fulfills the conditions
     size_t random_patch = 
@@ -288,28 +296,9 @@ void mortality(size_t patch_envt, size_t n_hawk, bool mortality_hawk)
     assert(n_hawk_check == n_hawk);
 #endif
 
-    // fecundity selection absent
-    // so whether we get immigrant 
-    // only depends on dispersal probability
-    size_t sampled = Npp + sample;
-
-    // array to store in cumulative distribution over all sampled
-    // individuals
-    double choose_prob[sampled];
-
-    // array to store patches from which the sampled individuals
-    // come from
-    size_t patch_origin[sampled];
-
-    // array to store the ids of the individuals
-    size_t individual_ids[sampled];
-
     // array with the individuals that may die
     size_t mortality_candidate_ids[Npp];
     size_t n_mortality_candidates = 0;
-
-    double sumprob = 0;
-    double d = 0;
 
     // at the same time calculate which local breeders
     // might die
@@ -339,7 +328,7 @@ void mortality(size_t patch_envt, size_t n_hawk, bool mortality_hawk)
 
     // keep track of new state variables
     // to update patch type statistics and counters (see below)
-    size_t n_hawk = n_hawk;
+    size_t n_hawk_new = n_hawk;
 
     // then mortality 
     assert(n_mortality_candidates > 0 && n_mortality_candidates <= Npp);
@@ -369,26 +358,30 @@ void mortality(size_t patch_envt, size_t n_hawk, bool mortality_hawk)
     // make new Kid
     Individual Kid;
 
+
     // sample local kid
     if (gsl_rng_uniform(r) < d)
     {
-        create_kid(MetaPop[random_patch_id].locals[gsl_rng_uniform_int(r, Npp)],
-                Individual);
+        create_kid(
+                MetaPop[random_patch_id].locals[gsl_rng_uniform_int(r, Npp)],
+                Kid
+                );
     }
     else
     {
         // birth from a remote parent
-        create_kid(MetaPop[gsl_rng_uniform_int(r, Npatches)].locals[
-                gsl_rng_uniform_int(r, Npp)
-                ], Individual);
+        create_kid(
+                MetaPop[gsl_rng_uniform_int(r, Npatch)].locals[gsl_rng_uniform_int(r, Npp)], 
+                Kid);
     }
 
     // mortality and replacement
     MetaPop[random_patch_id].locals[candidate_id] = Kid;
 
+    // if newborn is hawk, increment count
     if (MetaPop[random_patch_id].locals[candidate_id].hawk)    
     {
-        ++n_adapted_new;
+        ++n_hawk_new;
     }
 
     // update statistics
@@ -402,8 +395,8 @@ void mortality(size_t patch_envt, size_t n_hawk, bool mortality_hawk)
         ];
 
     // add patch id to the correct stack
-    patch_ids[n_adapted_new][
-        Npatches[n_adapted_new]++
+    patch_ids[n_hawk_new][
+        Npatches[n_hawk_new]++
     ] = random_patch_id;
 
     // we're done.
@@ -413,10 +406,10 @@ void mortality(size_t patch_envt, size_t n_hawk, bool mortality_hawk)
 
     for (size_t breeder_i = 0; breeder_i < Npp; ++breeder_i)
     {
-        n_hawk += MetaPop[random_patch_id].locals[breeder_i].hawk; 
+        n_hawk_check += MetaPop[random_patch_id].locals[breeder_i].hawk; 
     }
 
-    assert(n_hawk_check == n_adapted_new);
+    assert(n_hawk_check == n_hawk_new);
 #endif
 }
 
@@ -429,127 +422,68 @@ int main(int argc, char **argv)
     write_data_headers();
 
     // there are this number of n probabilities:
-    // 1. switching
-    // 2. mortality adapted
-    // 3. mortality maladapted adapted
+    // 1. mortality hawk on a 1 hawk 1 dove patch
+    // 2. mortality hawk on a 2 hawk patch
+    // 3. mortality dove on a 1 hawk 1 dove patch
+    // 4. mortality dove on a 2 dove patch
     //
-    // these can affect 2 * 3  different patch types
-    // i. 2 x envt, ii. 3 x 0,1,2 adapted individuals per patch,
-    // finally there are 
-    size_t nprobs = 3 * 2 * 3;
+    size_t nprobs = 4;
 
     double probs[nprobs]; // vector with probabilities
 
-    bool done; // variable to get out of nested loop
     double prob; // actual event probability sampled from 
                 // the cumulative prob distribution
 
-    // set up as a markovian process of numgen^2 timesteps
-    // if we would have used a single variable then we would 
-    // run into problems as the minimum specification of the maximum size
-    // of size_t = ~65500
-    for (generation = 0; generation < numgen; ++generation)
+    // run the markov process
+    for (generation = 0; generation < NumGen; ++generation)
     {
-        for (size_t generation2 = 0; generation2 < 80000; ++generation2)
+        // generate cumulative prob. distribution of possible
+        // events
+        double sum_probs = 0;
+
+        /// 1. mortality hawk on a 1 hawk 1 dove patch
+        sum_probs += .5 * (1.0-v) * Npatches[1];
+        probs[0] = sum_probs;
+
+        // 2. mortality hawk on a 2 hawk patch
+        sum_probs += (1.0-(.5*v - .5*c)) * Npatches[2];
+        probs[1] = sum_probs;
+
+        // 3. mortality dove on a 1 hawk 1 dove patch
+        sum_probs += .5 * (1.0-0) * Npatches[1];
+        probs[2] = sum_probs;
+    
+        // 4. mortality dove on a 2 dove patch
+        sum_probs += (1.0-.5*v) * Npatches[0];
+        probs[3] = sum_probs;
+
+        // decide which event will happen
+        //
+        // draw value from cumul distribution
+        prob = gsl_rng_uniform(r) *  sum_probs;
+
+        // 1. mortality hawk on a 1 hawk 1 dove patch
+        //
+        if (prob <= probs[0])
         {
-            // generate cumulative prob. distribution of possible
-            // events
-            double sum_probs = 0;
-            size_t prob_count = 0;
-
-            // loop through the different patch types 
-            for (size_t patch_envt = 0; patch_envt < 2; ++patch_envt)
-            {
-                // number of adapted individuals in a patch
-                for (size_t n_adapted = 0; n_adapted <= 2; ++n_adapted)
-                {
-                    // probability that a patch switches state
-                    sum_probs += envt_switch[patch_envt] 
-                        * Npatches[patch_envt][n_adapted];
-
-                    probs[prob_count++] = sum_probs; 
-
-                    // mortality adapted
-                    sum_probs += (double) n_adapted / Npp 
-                        * (n_adapted == 1 ? 
-                             1.0 / (1.0 - C[patch_envt]) 
-                             : 1.0 / (1.0 - c[patch_envt]) 
-                          )
-                        * Npatches[patch_envt][n_adapted];
-                    
-                    probs[prob_count++] = sum_probs; 
-
-                    // mortality maladapted individual
-                    sum_probs += (double) (Npp - n_adapted) / Npp 
-                        * (n_adapted == 1 ? 
-                             1.0 / (1.0 - C[patch_envt]) 
-                             : 1.0 / (1.0 - c[patch_envt]) 
-                          )
-                        * Npatches[patch_envt][n_adapted];
-                    
-                    probs[prob_count++] = sum_probs; 
+            mortality(1, true);
+        } else if (prob <= probs[1])
+        {
+            mortality(2, true);
+        }
+        else if (prob <= probs[2])
+        {
+            mortality(1, false);
+        }
+        else if (prob <= probs[3])
+        {
+            mortality(0, false);
+        }
     
-                    assert(prob_count <= nprobs);
-                }
-            }
-
-            // decide which event will happen
-            //
-            // draw value from cumul distribution
-            prob = gsl_rng_uniform(r) *  sum_probs;
-
-            prob_count = 0;
-
-            // variable to break out of all the loops
-            done = false;
-
-            // locate the event
-            // in the cumulative distribution
-            for (size_t patch_envt = 0; patch_envt < 2; ++patch_envt)
-            {
-                if (done)
-                {
-                    break;
-                }
-
-                for (size_t n_adapted = 0; n_adapted <= 2; ++n_adapted)
-                {
-                    if (prob <= probs[prob_count])
-                    {
-                        switch_patch_state(patch_envt, n_adapted);
-                        done = true;
-                        break;
-                    }
-
-                    ++prob_count;
-
-                    // mortality adapted
-                    if (prob <= probs[prob_count])
-                    {
-                        mortality(patch_envt, n_adapted, false);
-                        done = true;
-                        break;
-                    }
-
-                    ++prob_count;
-
-                    // mortality maladapted
-                    if (prob <= probs[prob_count])
-                    {
-                        mortality(patch_envt, n_adapted, true);
-                        done = true;
-                        break;
-                    }
-                    
-                    ++prob_count;
-                }
-            } // end for patch_envt
-    
-            if (generation2 % skip2 == 0)
-            {
-                write_data();
-            }
-        } //end for size_t generation2
+        if (generation % skip == 0)
+        {
+            write_data();
+        }
     } // end for size_t _generation
 
     write_data();

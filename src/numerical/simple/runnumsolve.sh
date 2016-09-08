@@ -2,7 +2,7 @@
 
 # run the numerical solver with particular parameter values
 
-./numsolve 1000 0.1  0.25 0.8 0.33 0.33   0.5 0.5
+./numsolve 1000000 0.1  0.25 0.8 0.33 0.33   0.5 0.5
 
 
 #		paramstruct.d = atof(argv[2]);

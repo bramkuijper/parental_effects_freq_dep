@@ -15,55 +15,32 @@ rcParams.update(params)
 # get the filename from the command line
 filename = sys.argv[1]
 
-data = pd.read_csv(filename, sep=";",skiprows = 18)
+data = pd.read_csv(filename, sep=";",skiprows = 11)
 
 nrows = data.shape[0]
 
-row_each = math.floor(float(nrows)/1000)
+#row_each = math.floor(float(nrows)/1000)
+#
+## make dataset shorter so that we don't plot megabytes
+#data = data.iloc[range(0,nrows,int(row_each)),:]
 
-# make dataset shorter so that we don't plot megabytes
-data = data.iloc[range(0,nrows,int(row_each)),:]
-
-## process the parameters at the end of the file
-#def process_params(dictionary, rowctr):
-#
-#    fo = open(filename,"r")
-#    fl = fo.readlines()
-#
-#    params = {};
-#
-#    for line in fl[rowctr:]:
-#        if line.strip() != "":
-#            splitted = line.strip().split(";")
-#            params[splitted[0]] = splitted[1]
-#
-#    return params
-
-# generate the figure
 
 # initialize and specify size 
 fig = plt.figure(figsize=(10,10))
 
-num_rows = 2
+num_rows = 3
 
 # names of columns in dataframe
 colnames = list(data.columns.values)
 
 # add first subplot depicting % type 1 offspring
 plt.subplot(num_rows,1,1)
-if "meanp2" in colnames:
-    plt.plot(data["generation"],data["meanp1"],'b',
-            data["generation"],data["meanp2"],'r',linewidth=1)
-    plt.legend((r'$p_{1}$',r'$p_{2}$'))
-else:
-    plt.plot(data["generation"],data["meanp10"],'c',
-            data["generation"],data["meanp11"],'m',
-            data["generation"],data["meanp21"],'y',
-            data["generation"],data["meanp22"],'k',
-            linewidth=1)
-    plt.legend((r'$p_{1,\mathrm{young}}$',r'$p_{1,\mathrm{old}}$',r'$p_{2,\mathrm{young}}$',r'$p_{2,\mathrm{old}}$'))
 
-plt.ylabel(r'prop. $z_{1}$ offspring')
+plt.plot(data["generation"],data["meanphh"],'b',
+        data["generation"],data["meanpdh"],'r',linewidth=1)
+plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h}}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h}}$'))
+
+plt.ylabel(r'Prob. offspring is hawk')
 plt.ylim(0,1)
 
 # add 2nd subplot depicting patch frequencies
@@ -84,6 +61,15 @@ for name in patch_freq_names:
 plt.ylabel(r'patch frequencies')
 plt.legend(tuple(patch_freq_names))
 plt.ylim(0,1)
+
+# add first subplot depicting % type 1 offspring
+plt.subplot(num_rows,1,3)
+
+plt.plot(data["generation"],data["varphh"],'b',
+        data["generation"],data["varphd"],'r',linewidth=1)
+plt.legend((r'$\mathrm{var}\left(p_{\mathrm{h}\rightarrow\mathrm{h}}\right)$',r'$\mathrm{var}\left(p_{\mathrm{d}\rightarrow\mathrm{h}}\right)$'))
+
+plt.ylabel(r'Variance')
 
 
 graphname = os.path.dirname(filename)

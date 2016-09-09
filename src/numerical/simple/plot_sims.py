@@ -52,7 +52,7 @@ plt.plot(data["time"],data["phh"],'b',
 plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h}}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h}}$'))
 
 plt.ylabel(r'Prob. offspring is hawk')
-plt.ylim(0,1)
+plt.ylim(-0.05,1.05)
 
 # add 2nd subplot depicting patch frequencies
 plt.subplot(num_rows,1,2)
@@ -64,7 +64,7 @@ plt.plot(data["time"],data["f_0"],'y',
 plt.legend((r'$f_{0}$',r'$f_{1}$',r'$f_{2}$'))
 
 plt.ylabel(r'Patch freqs')
-plt.ylim(0,1)
+plt.ylim(-0.05,1.05)
 
 
 graphname = os.path.dirname(filename)

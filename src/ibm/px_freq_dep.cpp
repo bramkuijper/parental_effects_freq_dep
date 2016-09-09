@@ -27,7 +27,7 @@ gsl_rng *r; // gnu scientific rng
 
 const size_t Npatch = 4000; 
 const size_t Npp = 2;
-unsigned long int NumGen = 1e18; // maximum number of generations
+unsigned long int NumGen = 1e14; // maximum number of generations
 int sample = 20;
 
 double h0 = 0.5;

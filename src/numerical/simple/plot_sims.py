@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys, re, os.path, itertools
 import matplotlib
@@ -20,7 +20,7 @@ f = open(filename)
 fl = f.readlines()
 f.close()
 
-nrow = len(fl)-6
+nrow = len(fl)-7
 
 
 data = pd.read_csv(filename, sep=";", nrows=nrow)

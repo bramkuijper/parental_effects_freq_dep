@@ -47,6 +47,22 @@ int psys_recur(void *params, gsl_vector *f)
     return GSL_SUCCESS;
 }
 
+void relcoeff(void *params, gsl_vector *f)
+{
+    //VARFUNC
+
+
+    // RELATEDNESS
+}
+
+
+void reproductive_values(void *params, gsl_vector *f)
+{
+    // VARFUNC
+
+
+    // REPVALS
+}
 
 void selgrads(void *params, gsl_vector *f)
 {
@@ -89,6 +105,12 @@ int main (int argc, char **argv)
     //
     // vector for patch frequencies
     gsl_vector *x_p = gsl_vector_alloc(2);
+    
+    // vector for relatedness
+    gsl_vector *x_r = gsl_vector_alloc(3);
+
+    // vector for reproductive values
+    gsl_vector *x_v = gsl_vector_alloc(4);
 
     // vector for selection gradients
     gsl_vector *x_selgrad = gsl_vector_alloc(2);
@@ -125,10 +147,38 @@ int main (int argc, char **argv)
     int iter;
     for (iter = 0; iter < max_iter ; ++iter)
     {
+        // patch frequencies
         psys_recur(&paramstruct, x_p);
 
         paramstruct.f_0= gsl_vector_get(x_p,0);
         paramstruct.f_1= gsl_vector_get(x_p,1);
+
+        assert(isnan(paramstruct.f_0) == 0);
+        assert(isnan(paramstruct.f_1) == 0);
+
+        // relatedness
+        relcoeff(&paramstruct, x_r);        
+        
+        paramstruct.rhh = gsl_vector_get(x_r, 0);
+        paramstruct.rhd = gsl_vector_get(x_r, 1);
+        paramstruct.rdd = gsl_vector_get(x_r, 2);
+        
+        assert(isnan(paramstruct.rhh) == 0);
+        assert(isnan(paramstruct.rhd) == 0);
+        assert(isnan(paramstruct.rdd) == 0);
+
+        // reproductive values
+        reproductive_values(&paramstruct, x_v);
+        
+        paramstruct.vh_1 = gsl_vector_get(x_v, 0);
+        paramstruct.vh_2 = gsl_vector_get(x_v, 1);
+        paramstruct.vd_0 = gsl_vector_get(x_v, 2);
+        paramstruct.vd_1 = gsl_vector_get(x_v, 3);
+        
+        assert(isnan(paramstruct.vh_1) == 0);
+        assert(isnan(paramstruct.vh_2) == 0);
+        assert(isnan(paramstruct.vd_0) == 0);
+        assert(isnan(paramstruct.vd_1) == 0);
 
         // selection gradients
         selgrads(&paramstruct, x_selgrad);
@@ -145,6 +195,9 @@ int main (int argc, char **argv)
         }
         paramstruct.phh = gsl_vector_get(x_selgrad, 0);
         paramstruct.pdh = gsl_vector_get(x_selgrad, 1);
+        
+        assert(isnan(paramstruct.phh) == 0);
+        assert(isnan(paramstruct.pdh) == 0);
         
         if (iter > 50000)
         {

@@ -20,6 +20,8 @@ class Inserter:
     filename_selgrads = "selgrad.txt" # the selection gradients
     filename_vars= "variables.txt" # a file containing all the variables used
     filename_params = "params.txt" # a file containing all the variables used
+    filename_repvals = "repvals.txt" # a file containing the reproductive values
+    filename_relvals = "relvals.txt" # a file containing relatedness coefficients
 
     # a list of regular expressions to transform Mathematica-expressions
     # to their C equivalents
@@ -27,10 +29,14 @@ class Inserter:
             "f\((\d+)\)",\
             "md\((\d+)\)",\
             "mh\((\d+)\)",\
+            "vh\((\d+)\)",\
+            "vd\((\d+)\)",\
             "Power", "Sqrt"]
     sollist = ["f_\\1",\
             "md_\\1",\
             "mh_\\1",\
+            "vh_\\1",\
+            "vd_\\1",\
             "pow", "sqrt"];
 
     # replaces all the Mathematica variables in the file filename
@@ -182,6 +188,8 @@ class Inserter:
         str_selgrads = self.transform(self.filename_selgrads)
         str_vars = self.transform(self.filename_vars)
         str_params = self.transform(self.filename_params)
+        str_relvals = self.transform(self.filename_relvals)
+        str_repvals = self.transform(self.filename_repvals)
 
         # open the c++ file
         cpp_f = open(self.filename_cpp)
@@ -191,6 +199,8 @@ class Inserter:
         # file at their respective positions indicated in the c++ file
         cpp_f_str = re.sub("PATCHRECUR","\n" + str_precur,cpp_f_str)
         cpp_f_str = re.sub("SELGRADS","\n" + str_selgrads,cpp_f_str)
+        cpp_f_str = re.sub("RELATEDNESS","\n" + str_relvals,cpp_f_str)
+        cpp_f_str = re.sub("REPVALS","\n" + str_repvals,cpp_f_str)
 
         # insert variable definitions
         cpp_f_str = self.insert_variables(str_vars, cpp_f_str)

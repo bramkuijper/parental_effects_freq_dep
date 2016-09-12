@@ -2,7 +2,7 @@
 
 import numpy as np
 
-step = 0.05
+step = 0.1
 vvals = list(np.arange(0.01, 1.0, step))
 cvals = list(np.arange(0.01, 1.0, step))
 
@@ -10,8 +10,10 @@ d = [ 0.1, 1.0 ]
 
 exe = "./numsolve"
 
-pdh_init = [ 0.05, 0.5, 0.95 ] 
-phh_init = [ 0.05, 0.5, 0.95 ] 
+#pdh_init = [ 0.05, 0.5, 0.95 ] 
+#phh_init = [ 0.05, 0.5, 0.95 ] 
+pdh_init = [ 0.5 ]
+phh_init = [ 0.5 ]
 
 ctr = 0
 
@@ -29,5 +31,8 @@ for v_i in vvals:
                             + str(0.33) + " "
                             + str(0.33) + " "
                             + str(pdh_i) + " "
-                            + str(phh_i) + " ")
+                            + str(phh_i) + " "
+                            + " 0.1 0.1 0.1 "
+                            + " 1.0 1.0 1.0 1.0 "
+                            )
 

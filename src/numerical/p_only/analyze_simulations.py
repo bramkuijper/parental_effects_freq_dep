@@ -63,18 +63,14 @@ def analyze_file(filename):
         return
 
     parameters = analyze_parameters(fl[parline:])
-    
-    data = analyze_data(fl[(parline-8):(parline-3)])
 
-#    data = analyze_data(fl[])
-
-    datvals = [ str(i) for i in data ]
+    data = fl[parline-3].strip()
 
     if first:
         print ";".join(parameters.keys()) + ";" + flhead.strip() + "file"
         first = False
 
-    print ";".join(parameters.values()) + ";" + ";".join(datvals) + ";" + filename
+    print ";".join(parameters.values()) + ";" + data + filename
 
 
 def visit(arg, dirname, names):

@@ -1,0 +1,4 @@
+double d;
+double v;
+double c;
+double pinit;

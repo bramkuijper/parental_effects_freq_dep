@@ -1,0 +1,9 @@
+double rhhtplus1 = rhh;
+
+double rhdtplus1 = rhd;
+
+double rddtplus1 = rdd;
+
+gsl_vector_set(f, 0, rhhtplus1);
+gsl_vector_set(f, 1, rhdtplus1);
+gsl_vector_set(f, 2, rddtplus1);

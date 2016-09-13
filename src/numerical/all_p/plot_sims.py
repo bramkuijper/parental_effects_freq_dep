@@ -55,7 +55,10 @@ plt.plot(
         )
 
 plt.ylabel(r'Prob. offspring is hawk')
-plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h},1}$',r'$p_{\mathrm{h}\rightarrow\mathrm{h},2}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h},1}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h},0}$'),bbox_to_anchor=(1.1,1.0))
+plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h},1}$',
+                r'$p_{\mathrm{h}\rightarrow\mathrm{h},2}$',
+                r'$p_{\mathrm{d}\rightarrow\mathrm{h},1}$',
+                r'$p_{\mathrm{d}\rightarrow\mathrm{h},0}$'),bbox_to_anchor=(1.1,1.0))
 plt.ylim(-0.05,1.05)
 
 # add 2nd subplot depicting patch frequencies

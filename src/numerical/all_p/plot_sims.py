@@ -48,12 +48,14 @@ colnames = list(data.columns.values)
 plt.subplot(num_rows,1,1)
 
 plt.plot(
-        data["time"],data["phh"],'b',
-        data["time"],data["pdh"],'r',
+        data["time"],data["phh1"],'b',
+        data["time"],data["phh2"],'r',
+        data["time"],data["pdh1"],'c',
+        data["time"],data["pdh0"],'k',
         )
 
 plt.ylabel(r'Prob. offspring is hawk')
-plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h}}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h}}$'))
+plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h},1}$',r'$p_{\mathrm{h}\rightarrow\mathrm{h},2}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h},1}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h},0}$'),bbox_to_anchor=(1.1,1.0))
 plt.ylim(-0.05,1.05)
 
 # add 2nd subplot depicting patch frequencies

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys, re, os.path, csv
 import matplotlib
@@ -36,9 +36,17 @@ colnames = list(data.columns.values)
 # add first subplot depicting % type 1 offspring
 plt.subplot(num_rows,1,1)
 
-plt.plot(data["generation"],data["meanphh"],'b',
-        data["generation"],data["meanpdh"],'r',linewidth=1)
-plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h}}$',r'$p_{\mathrm{d}\rightarrow\mathrm{h}}$'))
+plt.plot(
+        data["generation"],data["meanphh1"],'b',
+        data["generation"],data["meanphh2"],'r',
+        data["generation"],data["meanpdh0"],'k',
+        data["generation"],data["meanpdh1"],'c',
+        linewidth=1)
+plt.legend((r'$p_{\mathrm{h}\rightarrow\mathrm{h},1}$',
+            r'$p_{\mathrm{h}\rightarrow\mathrm{h},2}$',
+            r'$p_{\mathrm{d}\rightarrow\mathrm{h},0}$',
+            r'$p_{\mathrm{d}\rightarrow\mathrm{h},1}$'
+            ))
 
 plt.ylabel(r'Prob. offspring is hawk')
 plt.ylim(0,1)
@@ -65,9 +73,19 @@ plt.ylim(0,1)
 # add first subplot depicting % type 1 offspring
 plt.subplot(num_rows,1,3)
 
-plt.plot(data["generation"],data["varphh"],'b',
-        data["generation"],data["varphd"],'r',linewidth=1)
-plt.legend((r'$\mathrm{var}\left(p_{\mathrm{h}\rightarrow\mathrm{h}}\right)$',r'$\mathrm{var}\left(p_{\mathrm{d}\rightarrow\mathrm{h}}\right)$'))
+plt.plot(
+        data["generation"],data["varphh1"],'b',
+        data["generation"],data["varphh2"],'r',
+        data["generation"],data["varpdh0"],'k',
+        data["generation"],data["varpdh1"],'c',
+        linewidth=1)
+
+plt.legend((
+        r'$\mathrm{var}\left(p_{\mathrm{h}\rightarrow\mathrm{h},1}\right)$',
+        r'$\mathrm{var}\left(p_{\mathrm{h}\rightarrow\mathrm{h},2}\right)$',
+        r'$\mathrm{var}\left(p_{\mathrm{d}\rightarrow\mathrm{h},0}\right)$',
+        r'$\mathrm{var}\left(p_{\mathrm{d}\rightarrow\mathrm{h},1}\right)$',
+        ))
 
 plt.ylabel(r'Variance')
 

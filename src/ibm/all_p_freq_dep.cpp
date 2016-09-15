@@ -183,6 +183,7 @@ void create_kid(Individual &mother, Individual &Kid, size_t nhawk)
     {
         case 0:
             expr_h = 0.5*(mother.pdh0[0] + mother.pdh0[1]);
+            assert(!mother.hawk);
             break;
         case 1:
             expr_h = mother.hawk ? 
@@ -192,6 +193,8 @@ void create_kid(Individual &mother, Individual &Kid, size_t nhawk)
             break;
         case 2:
             expr_h = 0.5 * (mother.phh2[0] + mother.phh2[1]);
+
+            assert(mother.hawk);
             break;
         default:
             assert(nhawk <= 2);
@@ -406,7 +409,7 @@ void mortality(size_t n_hawk, bool mortality_hawk)
     size_t random_remote_patch_id = 0;
 
     // sample local kid
-    if (gsl_rng_uniform(r) < d)
+    if (gsl_rng_uniform(r) < 1.0 - d)
     {
         create_kid(
                 MetaPop[random_patch_id].locals[gsl_rng_uniform_int(r, Npp)],

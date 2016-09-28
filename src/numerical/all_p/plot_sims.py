@@ -20,7 +20,7 @@ f = open(filename)
 fl = f.readlines()
 f.close()
 
-nrow = len(fl)-9
+nrow = len(fl)-11
 
 
 data = pd.read_csv(filename, sep=";", nrows=nrow)

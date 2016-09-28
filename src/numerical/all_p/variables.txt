@@ -1,6 +1,8 @@
 double d;
-double v;
-double c;
+double md(0);
+double mh(1);
+double md(1);
+double mh(2);
 double pdhinit;
 double phhinit;
 double f(0);

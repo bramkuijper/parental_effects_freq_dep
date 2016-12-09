@@ -117,12 +117,14 @@ int main (int argc, char **argv)
 
     // initialize the struct with parameters
     struct rparams paramstruct; 
-  
+
     // initialize command line argument things
     // see generate_cpp.py 
     // ARGINIT
    
 
+    
+    
     // ranges for cycling: sometimes numerical iterations
     // won't resolve as solutions slightly cycle around
     // the final value. To see whether cyling behaviour

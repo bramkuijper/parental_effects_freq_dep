@@ -48,31 +48,47 @@ double c = 0.1;
 double mu_h = 0.01;
 double sdmu_h = 0.01;
 
+// individual with its evolving characters
+// and phenotype
 struct Individual {
 
+    // probability that a hawk living in a patch
+    // with a dove should produce hawk offspring
     double phh1[2];
+    // probability that a hawk living in a patch
+    // with a hawk should produce hawk offspring
     double phh2[2];
+    // probability that a dove living in a patch
+    // with a dove should produce hawk offspring
     double pdh0[2];
+    // probability that a dove living in a patch
+    // with a hawk should produce hawk offspring
     double pdh1[2];
 
+    // is this individual a hawk or not
     bool hawk;
 
 };
 
+// patch with local breeders and a counter for the
+// number of hawks
 struct Patch {
     Individual locals[Npp];
     size_t nhawk;
 };
 
-
+// make the total metapopulation
 Patch MetaPop[Npatch];
 
-// statistics for sampling
-// with 0, 1 or 2 hawks 
+// statistics to count the number of
+// patches either with
+// 0, 1 or 2 hawks 
 size_t Npatches[3];
 
-// next to counts store lists with the ids
+// next to counts of paches 
+// store a lookup list with the ids
 // of the corresponding patches
+// containing 0, 1 or 2 hawks
 size_t patch_ids[3][Npatch];
 
 // give the outputfile a unique name
@@ -323,68 +339,75 @@ void write_parameters()
 void mortality(size_t n_hawk, bool mortality_hawk)
 {
     // sample a random patch that fulfills the conditions
+    // in terms of the numbers of hawks living there
     size_t random_patch = 
         gsl_rng_uniform_int(r, 
             Npatches[n_hawk]
         );
 
-    // get the patch_id 
+    // get the corresponding patch_id 
     size_t random_patch_id = 
         patch_ids[n_hawk][random_patch];
 
-    // error checking
+    // error checking: does this patch indeed contain the number
+    // of hawks as it is supposed to have. Otherwise things
+    // go very wrong...
 #ifndef NDEBUG
     size_t n_hawk_check = 0;
 
+    // count hawks on the selected patch
     for (size_t breeder_i = 0; breeder_i < Npp; ++breeder_i)
     {
         n_hawk_check += MetaPop[random_patch_id].locals[breeder_i].hawk; 
     }
 
+    // number of hawks correct...
     assert(n_hawk_check == n_hawk);
 #endif
 
-    // array with the individuals that may die
+    // make an array with the individuals that may die
     size_t mortality_candidate_ids[Npp];
+
+    // how many candidates may die
     size_t n_mortality_candidates = 0;
 
-    // at the same time calculate which local breeders
-    // might die
+    // now select the suitable candidates
     for (size_t local_i = 0; local_i < Npp; ++local_i)
     {
         // store the mortality candidates
-        //
-        // mortality hawk
         if (
+                // individual to die should be a hawk 
                 (
                  mortality_hawk && 
                     MetaPop[random_patch_id].locals[local_i].hawk 
                 )
                 ||
-                (!mortality_hawk && 
+                (!mortality_hawk &&  // individual to die should be dove
                     !MetaPop[random_patch_id].locals[local_i].hawk 
                 )
 
             )
         {
+            // store the candidate
             mortality_candidate_ids[n_mortality_candidates++] = local_i;
         }
     }
 
-
-    // now perform mortality and sample recruit
-
     // keep track of new state variables
     // to update patch type statistics and counters (see below)
+    // after mortality has taken place
     size_t n_hawk_new = n_hawk;
 
-    // then mortality 
+    // now perform mortality and sample recruit
+    //
+    // some error checking first
     assert(n_mortality_candidates > 0 && n_mortality_candidates <= Npp);
 
     // sample a random candidate for mortality
     size_t candidate_id = 
         mortality_candidate_ids[gsl_rng_uniform_int(r, n_mortality_candidates)];
 
+    // again error checking (lots of it always...)
     assert(candidate_id >= 0 && candidate_id < Npp);
 
     assert(
@@ -397,23 +420,29 @@ void mortality(size_t n_hawk, bool mortality_hawk)
             )
     );
 
+    // ok, hawk dies. We can reduce the number of hawks on a patch already
     if (mortality_hawk)
     {
         --n_hawk_new;
     }
 
-
     // make new Kid
     Individual Kid;
 
+    // check whether the kid is philopatric 
+    // or immigrant
     size_t random_remote_patch_id = 0;
 
     // sample local kid
     if (gsl_rng_uniform(r) < 1.0 - d)
     {
         create_kid(
+                // local mom
                 MetaPop[random_patch_id].locals[gsl_rng_uniform_int(r, Npp)],
+
+                // the kid in question
                 Kid,
+                // its environment: the number of hawks initially on the patch
                 n_hawk
                 );
     }
@@ -423,16 +452,19 @@ void mortality(size_t n_hawk, bool mortality_hawk)
         random_remote_patch_id = gsl_rng_uniform_int(r, Npatch);
 
         create_kid(
+                // remote mom
                 MetaPop[random_remote_patch_id].locals[gsl_rng_uniform_int(r, Npp)], 
+                //the kid in question
                 Kid,
+                // its environment: the number of hawks initially on the patch
                 MetaPop[random_remote_patch_id].nhawk
                 );
     }
 
-    // mortality and replacement
+    // replace local by kid (mortality with replacement)
     MetaPop[random_patch_id].locals[candidate_id] = Kid;
 
-    // if newborn is hawk, increment count
+    // if newborn is hawk, increment count of hawks again
     if (MetaPop[random_patch_id].locals[candidate_id].hawk)    
     {
         ++n_hawk_new;
@@ -440,7 +472,7 @@ void mortality(size_t n_hawk, bool mortality_hawk)
 
     // update statistics
     //
-    // delete patch id in the corresponding stack
+    // delete patch id in the corresponding lookup list
     // by replacing it with the last patch id in the stack
     // and then deleting the last element (by reducing the counter by 1)
     patch_ids[n_hawk][random_patch] =
@@ -472,12 +504,21 @@ void mortality(size_t n_hawk, bool mortality_hawk)
 // main function body
 int main(int argc, char **argv)
 {
+    // initialize the command line arguments
     init_arguments(argc, argv);
+
+    // initialize the metapopulation
+    // provide all individuals with trait values
     init_pop();
+
+    // write the parameters to the file
+    // requiring that data be read using a skiprows
+    // argument when using read.table in R
     write_parameters();
+    // write the headers of the output file
     write_data_headers();
 
-    // there are this number of n probabilities:
+    // there are this number of probabilities:
     // 1. mortality hawk on a 1 hawk 1 dove patch
     // 2. mortality hawk on a 2 hawk patch
     // 3. mortality dove on a 1 hawk 1 dove patch
@@ -519,20 +560,23 @@ int main(int argc, char **argv)
         prob = gsl_rng_uniform(r) *  sum_probs;
 
         // 1. mortality hawk on a 1 hawk 1 dove patch
-        //
+        // see the mortality() function above
         if (prob <= probs[0])
         {
             mortality(1, true);
         } else if (prob <= probs[1])
         {
+        // 2. mortality hawk on a 2 hawk patch
             mortality(2, true);
         }
         else if (prob <= probs[2])
         {
+        // 3. mortality dove on a 1 hawk 1 dove patch
             mortality(1, false);
         }
         else if (prob <= probs[3])
         {
+        // 4. mortality dove on a 2 dove patch
             mortality(0, false);
         }
     

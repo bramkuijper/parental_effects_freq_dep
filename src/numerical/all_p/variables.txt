@@ -5,6 +5,7 @@ double md(1);
 double mh(2);
 double pdhinit;
 double phhinit;
+double err;
 double f(0);
 double f(1);
 double pdh(1);

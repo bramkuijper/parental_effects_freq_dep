@@ -20,7 +20,19 @@ f = open(filename)
 fl = f.readlines()
 f.close()
 
-nrow = len(fl)-9
+
+# find the parameters
+parline = -1
+
+for idx, line in enumerate(fl):
+    if re.match("^d.*",line) != None:
+        parline = idx - 1;
+        break;
+
+if parline == -1:
+    nrow = len(fl)
+else:
+    nrow = parline -2  
 
 
 data = pd.read_csv(filename, sep=";", nrows=nrow)

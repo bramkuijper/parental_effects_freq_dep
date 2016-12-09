@@ -6,7 +6,7 @@ step = 0.02
 vvals = list(np.arange(0.01, 1.0, step))
 cvals = list(np.arange(0.01, 1.0, step))
 
-d = [ 0.05, 0.1, 0.2, 0.5, 1.0 ]
+d = [ 0.1, 0.5, 1.0 ]
 
 exe = "./numsolve"
 

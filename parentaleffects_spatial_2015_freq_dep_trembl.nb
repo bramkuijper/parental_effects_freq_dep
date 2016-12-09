@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[    236494,       6475]
-NotebookOptionsPosition[    222620,       6079]
-NotebookOutlinePosition[    223054,       6096]
-CellTagsIndexPosition[    223011,       6093]
+NotebookDataLength[    225459,       6180]
+NotebookOptionsPosition[    212631,       5814]
+NotebookOutlinePosition[    213065,       5831]
+CellTagsIndexPosition[    213022,       5828]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -3333,18 +3333,30 @@ Cell[BoxData[
    RowBox[{"Module", "[", 
     RowBox[{
      RowBox[{"{", "freqs", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{"freqs", "=", 
+        RowBox[{"ans", "[", 
+         RowBox[{
+          RowBox[{"{", "ds", "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"mh1", ",", "mh2"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"md0", ",", "md1"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"phhs", ",", "pdhs"}], "}"}], ",", 
+          RowBox[{"{", "\[Epsilon]", "}"}]}], "]"}]}], ";"}], "*)"}], 
+     "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"freqs", "=", 
-       RowBox[{"ans", "[", 
+       RowBox[{"{", 
         RowBox[{
-         RowBox[{"{", "ds", "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"mh1", ",", "mh2"}], "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"md0", ",", "md1"}], "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"phhs", ",", "pdhs"}], "}"}], ",", 
-         RowBox[{"{", "\[Epsilon]", "}"}]}], "]"}]}], ";", " ", 
+         RowBox[{
+          RowBox[{"f", "[", "0", "]"}], "\[Rule]", "0.33"}], ",", 
+         RowBox[{
+          RowBox[{"f", "[", "1", "]"}], "\[Rule]", "0.33"}], ",", 
+         RowBox[{
+          RowBox[{"f", "[", "2", "]"}], "\[Rule]", "0.33"}]}], "}"}]}], ";", 
       "\[IndentingNewLine]", 
       RowBox[{"Return", "[", 
        RowBox[{"FindRoot", "[", 
@@ -3384,36 +3396,68 @@ Cell[BoxData[
       ";"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
  CellChangeTimes->{{3.682362154307127*^9, 3.68236219633923*^9}, {
   3.6823622611929893`*^9, 3.6823622755329533`*^9}, {3.68405658761171*^9, 
-  3.684056606130188*^9}, {3.6902936711475887`*^9, 3.690293740432849*^9}}],
+  3.684056606130188*^9}, {3.6902936711475887`*^9, 3.690293740432849*^9}, {
+  3.690303771117406*^9, 3.690303797112385*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"vx", "=", "0.25"}]], "Input",
- CellChangeTimes->{{3.682945983408217*^9, 3.682945991492906*^9}}],
+ RowBox[{"vx", "=", "0"}]], "Input",
+ CellChangeTimes->{{3.682945983408217*^9, 3.682945991492906*^9}, 
+   3.690303491824445*^9}],
 
-Cell[BoxData["0.25`"], "Output",
+Cell[BoxData["0"], "Output",
  CellChangeTimes->{{3.68294598465029*^9, 3.682945992513949*^9}, 
    3.6829580579849253`*^9, 3.682959578407529*^9, 3.6829612106851177`*^9, 
    3.683007557361162*^9, 3.683007589660178*^9, 3.683007630321295*^9, 
    3.684042727852531*^9, 3.68405662885247*^9, 3.684057237716599*^9, 
    3.6840590556382236`*^9, 3.6840609786391497`*^9, 3.684061755316242*^9, 
-   3.6902673901888037`*^9, 3.690267600276897*^9, 3.6902777825357513`*^9}]
+   3.6902673901888037`*^9, 3.690267600276897*^9, 3.6902777825357513`*^9, 
+   3.690303492690208*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"cx", "=", "0.8"}]], "Input",
- CellChangeTimes->{{3.6829459937708473`*^9, 3.6829459955242987`*^9}}],
+ RowBox[{"cx", "=", "0"}]], "Input",
+ CellChangeTimes->{{3.6829459937708473`*^9, 3.6829459955242987`*^9}, 
+   3.6903034946537867`*^9}],
 
-Cell[BoxData["0.8`"], "Output",
+Cell[BoxData["0"], "Output",
  CellChangeTimes->{3.682945996426029*^9, 3.682958058030014*^9, 
   3.682959578455127*^9, 3.682961210717236*^9, 3.683007557401263*^9, 
   3.683007589666937*^9, 3.683007630370891*^9, 3.684042727858489*^9, 
   3.684056628890251*^9, 3.684057237747374*^9, 3.684059055658136*^9, 
   3.684060978664926*^9, 3.684061755336371*^9, 3.69026739019313*^9, 
-  3.690267601400638*^9, 3.690277782541218*^9}]
+  3.690267601400638*^9, 3.690277782541218*^9, 3.690303495723605*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ans", "[", 
+  RowBox[{
+   RowBox[{"{", "1.0", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1.0", ",", "1.0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1.0", ",", "1.0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.5", ",", "0.5"}], "}"}], ",", 
+   RowBox[{"{", "0", "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.690303730196712*^9, 3.690303758599628*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "[", "0", "]"}], "\[Rule]", "0.24999999999999994`"}], ",", 
+   RowBox[{
+    RowBox[{"f", "[", "1", "]"}], "\[Rule]", "0.5`"}], ",", 
+   RowBox[{
+    RowBox[{"f", "[", "2", "]"}], "\[Rule]", "0.25000000000000006`"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.690303758890399*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3421,7 +3465,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"ansRel", "[", 
   RowBox[{
-   RowBox[{"{", ".99", "}"}], ",", 
+   RowBox[{"{", "1.0", "}"}], ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"1.0", "-", "vx"}], ",", 
@@ -3434,22 +3478,26 @@ Cell[BoxData[
      RowBox[{"1.0", "-", 
       RowBox[{".5", "*", "cx"}]}], ",", "1.0"}], "}"}], ",", 
    RowBox[{"{", 
-    RowBox[{"0.35", ",", "1.0"}], "}"}], ",", 
-   RowBox[{"{", "0.05", "}"}]}], "]"}]], "Input",
+    RowBox[{".5", ",", ".5"}], "}"}], ",", 
+   RowBox[{"{", "0", "}"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.682362277214612*^9, 3.682362374222139*^9}, {
   3.682584023186549*^9, 3.682584024584736*^9}, {3.682945971089429*^9, 
   3.682945971143819*^9}, {3.68294986488445*^9, 3.682949865190816*^9}, {
   3.683008843432417*^9, 3.683008844678714*^9}, {3.684056612499538*^9, 
   3.6840566139938393`*^9}, {3.690292652417376*^9, 3.690292652840889*^9}, {
-  3.690293764158939*^9, 3.690293768477059*^9}}],
+  3.690293764158939*^9, 3.690293768477059*^9}, {3.6903034730027857`*^9, 
+  3.690303473885704*^9}, {3.690303521760014*^9, 3.690303551041053*^9}, {
+  3.690303611886602*^9, 3.690303614534658*^9}}],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-   RowBox[{"rdd", "\[Rule]", "0.00019780205084282687`"}], ",", 
-   RowBox[{"rhh", "\[Rule]", "0.002122581667577103`"}], ",", 
-   RowBox[{"rhd", "\[Rule]", "0.006061765519635345`"}]}], "}"}]], "Output",
- CellChangeTimes->{{3.690293744235985*^9, 3.690293769162442*^9}}]
+   RowBox[{"rdd", "\[Rule]", "0.`"}], ",", 
+   RowBox[{"rhh", "\[Rule]", "0.`"}], ",", 
+   RowBox[{"rhd", "\[Rule]", "0.`"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.690293744235985*^9, 3.690293769162442*^9}, {
+   3.690303474452598*^9, 3.690303496755786*^9}, {3.6903035411052732`*^9, 
+   3.6903035514252243`*^9}, 3.6903036150537567`*^9, 3.690303800404714*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -4681,12 +4729,12 @@ Cell[BoxData[
   RowBox[{"destdir", "=", 
    RowBox[{
    "$HomeDirectory", "<>", 
-    "\"\</Projects/parental_effects_freq_dep/src/numerical/all_p/\>\""}]}], 
-  ";"}]], "Input",
+    "\"\</Projects/freq_dep/src/numerical/all_p/\>\""}]}], ";"}]], "Input",
  CellChangeTimes->{{3.682161717565921*^9, 3.6821617711984797`*^9}, {
    3.6825933994944*^9, 3.682593404584663*^9}, {3.682679951619446*^9, 
    3.6826799539863863`*^9}, 3.682686016773263*^9, {3.682752360836028*^9, 
-   3.68275236201057*^9}, 3.68295961553316*^9, 3.683007623426265*^9}],
+   3.68275236201057*^9}, 3.68295961553316*^9, 3.683007623426265*^9, {
+   3.690304350161018*^9, 3.690304350458255*^9}}],
 
 Cell["Recursions patch frequencies:", "Text",
  CellChangeTimes->{{3.682161882166662*^9, 3.682161885670203*^9}, 
@@ -4706,8 +4754,6 @@ Cell[BoxData[
    3.68233578154373*^9}, {3.682335821498516*^9, 3.682335823800241*^9}, 
    3.6827523658025503`*^9, {3.6827564582527313`*^9, 3.682756459747501*^9}, {
    3.684042122362256*^9, 3.684042122696566*^9}}],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -4735,8 +4781,8 @@ rtime=0;rtime<1e7;++rtime)\n{\\n\n df0dt=\>\"", "<>",
    RowBox[{
    "str", "<>", 
     "\"\<if (fabs(df0dt-f(0))<1e-7 && fabs(df1dt-f(1))<1e-7)\n{\\n\n\
-f(0)=bound(df0dt);\\n\nf(1)=bound(df1dt);\\n\nbreak;\n}\n\
-f(0)=bound(df0dt);\\n\nf(1)=bound(df1dt);\\n\n}\\n\>\""}]}], 
+f(0)=bound01(df0dt);\\n\nf(1)=bound01(df1dt);\\n\nbreak;\n}\n\
+f(0)=bound01(df0dt);\\n\nf(1)=bound01(df1dt);\\n\n}\\n\>\""}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
@@ -4757,44 +4803,16 @@ f(0)=bound(df0dt);\\n\nf(1)=bound(df1dt);\\n\n}\\n\>\""}]}],
   3.682332675735446*^9, 3.682332726798011*^9}, {3.682336840329123*^9, 
   3.682336959051839*^9}, {3.682337019281827*^9, 3.682337159552997*^9}, {
   3.6823374847557*^9, 3.682337501625996*^9}, {3.682338636259857*^9, 
-  3.68233863667269*^9}, {3.6827564631202908`*^9, 3.682756464077887*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Export", "::", "nodir"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Directory \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/\\\"\\)\[NoBreak] does not exist. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/Export\\\", ButtonNote -> \
-\\\"Export::nodir\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525179346*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"OpenWrite", "::", "noopen"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Cannot open \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/patchrecurs.txt\\\"\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
-\\\"OpenWrite::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.6902945252123127`*^9}]
-}, Open  ]],
+  3.68233863667269*^9}, {3.6827564631202908`*^9, 3.682756464077887*^9}, {
+  3.6903053899018297`*^9, 3.690305394771337*^9}}],
 
 Cell["Selection gradients:", "Text",
  CellChangeTimes->{{3.682162445075205*^9, 3.682162448753883*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[{
  RowBox[{
   RowBox[{"str", "=", 
-   RowBox[{"\"\<double phh1tplus1=bound(\>\"", "<>", 
+   RowBox[{"\"\<double phh1tplus1=bound01(\>\"", "<>", 
     RowBox[{"toC", "[", 
      RowBox[{
       RowBox[{
@@ -4806,7 +4824,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double phh2tplus1=bound(\>\"", "<>", 
+   RowBox[{"str", "<>", "\"\<double phh2tplus1=bound01(\>\"", "<>", 
     RowBox[{"toC", "[", 
      RowBox[{
       RowBox[{
@@ -4818,7 +4836,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double pdh1tplus1=bound(\>\"", "<>", 
+   RowBox[{"str", "<>", "\"\<double pdh1tplus1=bound01(\>\"", "<>", 
     RowBox[{"toC", "[", 
      RowBox[{
       RowBox[{
@@ -4830,7 +4848,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double pdh0tplus1=bound(\>\"", "<>", 
+   RowBox[{"str", "<>", "\"\<double pdh0tplus1=bound01(\>\"", "<>", 
     RowBox[{"toC", "[", 
      RowBox[{
       RowBox[{
@@ -4866,34 +4884,8 @@ pdh0tplus1);\>\""}]}], ";"}], "\[IndentingNewLine]",
    3.6825931524741697`*^9, 3.682593158474628*^9}, {3.6827523758443413`*^9, 
    3.682752471623835*^9}, 3.6827527870913343`*^9, {3.682755722838686*^9, 
    3.6827557242862*^9}, {3.6827564661991787`*^9, 3.6827564688454523`*^9}, {
-   3.684058922741806*^9, 3.6840589589719887`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Export", "::", "nodir"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Directory \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/\\\"\\)\[NoBreak] does not exist. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/Export\\\", ButtonNote -> \
-\\\"Export::nodir\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525291934*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"OpenWrite", "::", "noopen"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Cannot open \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/selgrad.txt\\\"\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
-\\\"OpenWrite::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.69029452529288*^9}]
-}, Open  ]],
+   3.684058922741806*^9, 3.6840589589719887`*^9}, {3.69030532973639*^9, 
+   3.690305336210227*^9}}],
 
 Cell["Reproductive values", "Text",
  CellChangeTimes->{{3.682593141350663*^9, 3.682593144663989*^9}}],
@@ -4916,50 +4908,47 @@ Cell[BoxData[
       RowBox[{"vh", "[", "2", "]"}], ",", "1.0"}], "}"}]}], "}"}], 
   ";"}]], "Input"],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[{
- RowBox[{
-  RowBox[{"str", "=", "\"\<\>\""}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vh_1_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vh", "[", "1", "]"}], "/.", "solrv1"}], "/.", "subslistpi"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vh_2_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vh", "[", "2", "]"}], "/.", "solrv1"}], "/.", "subslistpi"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vd_0_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vd", "[", "0", "]"}], "/.", "solrv1"}], "/.", "subslistpi"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vd_1_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vd", "[", "1", "]"}], "/.", "solrv1"}], "/.", "subslistpi"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
    RowBox[{
-   "str", "<>", 
-    "\"\<gsl_vector_set(f, 0, vh_1_tplus1);\\ngsl_vector_set(f, 1, \
-vh_2_tplus1);\\ngsl_vector_set(f, 2, vd_0_tplus1);\\ngsl_vector_set(f, 3, \
-vd_1_tplus1);\>\""}]}], ";"}], "\[IndentingNewLine]", 
+   "\"\<\n\tdouble vh_1_tplus1;\n\tdouble vh_2_tplus1;\n\tdouble vd_0_tplus1;\
+\n\tdouble vd_1_tplus1;\n\tfor (int rtime=0;rtime<1e07;++rtime) {\n\t\t\
+vh_1_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vh", "[", "1", "]"}], "+", 
+       RowBox[{"0.01", 
+        RowBox[{"(", "dvh1dt", ")"}]}]}], "/.", "subslistpi"}], "]"}], "<>", 
+    "\"\<);\n\t\tvh_2_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vh", "[", "2", "]"}], "+", 
+       RowBox[{"0.01", 
+        RowBox[{"(", "dvh2dt", ")"}]}]}], "/.", "subslistpi"}], "]"}], "<>", 
+    "\"\<);\n\t\tvd_0_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vd", "[", "0", "]"}], "+", 
+       RowBox[{"0.01", 
+        RowBox[{"(", "dvd0dt", ")"}]}]}], "/.", "subslistpi"}], "]"}], "<>", 
+    "\"\<);\n\t\tvd_1_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vd", "[", "1", "]"}], "+", 
+       RowBox[{"0.01", 
+        RowBox[{"(", "dvd1dt", ")"}]}]}], "/.", "subslistpi"}], "]"}], "<>", 
+    "\"\<);\n\n\t\tif (fabs(vh_1_tplus1 - vh(1)) < 1e-7 &&\n\t\t\t\t\
+fabs(vh_2_tplus1 - vh(2)) < 1e-7 &&\n\t\t\t\tfabs(vd_0_tplus1 - vd(0)) < 1e-7 \
+&&\n\t\t\t\tfabs(vd_1_tplus1 - vd(1)) < 1e-7)\n\t\t{\n\t\t\tbreak;\n\t\t}\n\n\
+\t\tvh(1) = vh_1_tplus1;\n\t\tvh(2) = vh_2_tplus1;\n\t\tvd(0) = vd_0_tplus1;\n\
+\t\tvd(1) = vd_1_tplus1;\n\t}\n\tgsl_vector_set(f, 0, vh(1));\n\t\
+gsl_vector_set(f, 1, vh(2));\n\tgsl_vector_set(f, 2, vd(0));\n\t\
+gsl_vector_set(f, 3, vd(1));\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Export", "[", 
    RowBox[{
@@ -4971,201 +4960,52 @@ vd_1_tplus1);\>\""}]}], ";"}], "\[IndentingNewLine]",
   3.6825939700484*^9, 3.682593984356481*^9}, {3.6825942579923477`*^9, 
   3.682594281286126*^9}, {3.68259457678067*^9, 3.682594579536339*^9}, {
   3.682610346972528*^9, 3.682610366288414*^9}, {3.682756471064345*^9, 
-  3.6827564728786907`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({solrv1}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525340925*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({solrv1}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.6902945253573837`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({solrv1}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525373782*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({solrv1}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525390205*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Export", "::", "nodir"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Directory \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/\\\"\\)\[NoBreak] does not exist. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/Export\\\", ButtonNote -> \
-\\\"Export::nodir\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.6902945254291162`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"OpenWrite", "::", "noopen"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Cannot open \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/repvals.txt\\\"\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
-\\\"OpenWrite::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525456614*^9}]
-}, Open  ]],
+  3.6827564728786907`*^9}, {3.684060719316674*^9, 3.6840607240580273`*^9}, {
+  3.690293937603519*^9, 3.690294042466384*^9}, {3.690294210847473*^9, 
+  3.6902945034401503`*^9}, {3.690298607256329*^9, 3.690298607789392*^9}, {
+  3.6903000954813232`*^9, 3.690300124369986*^9}, {3.6903001765543747`*^9, 
+  3.690300190948062*^9}, {3.690304700080634*^9, 3.690304705460288*^9}, {
+  3.690305450228828*^9, 3.690305456464353*^9}}],
 
 Cell["Relatedness coefficients", "Text",
  CellChangeTimes->{{3.68259363336897*^9, 3.6825936366162*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[{
- RowBox[{
-  RowBox[{"str", "=", "\"\<\>\""}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double rhhtplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{"rhh", "/.", "rsols"}], "/.", "subslistpi"}], "]"}], "<>", 
-    "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double rhdtplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{"rhd", "/.", "rsols"}], "/.", "subslistpi"}], "]"}], "<>", 
-    "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double rddtplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{"rdd", "/.", "rsols"}], "/.", "subslistpi"}], "]"}], "<>", 
-    "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
    RowBox[{
-   "str", "<>", 
-    "\"\<gsl_vector_set(f, 0, rhhtplus1);\\ngsl_vector_set(f, 1, \
-rhdtplus1);\\ngsl_vector_set(f, 2, rddtplus1);\\n\>\""}]}], 
-  ";"}], "\[IndentingNewLine]", 
+   "\"\<\n\tdouble rhhtplus1;\n\tdouble rhdtplus1;\n\tdouble rddtplus1;\n\t\
+for (int rtime=0; rtime<1e07; ++rtime) {\n\t\trhhtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{"drhhdt", "/.", "subslistpi"}], "]"}], "<>", 
+    "\"\<);\n\t\trhdtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{"drhddt", "/.", "subslistpi"}], "]"}], "<>", 
+    "\"\<);\n\t\trddtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{"drdddt", "/.", "subslistpi"}], "]"}], "<>", 
+    "\"\<);\n\n\t\tif (\n\t\t\t\tfabs(rhhtplus1 - rhh) < 1e-07 &&\n\t\t\t\t\
+fabs(rhdtplus1 - rhd) < 1e-07 &&\n\t\t\t\tfabs(rddtplus1 - rdd) < 1e-07\n\t\t\
+\t)\n\t\t{\n\t\t\tbreak;\n\t\t}\n\t\trhh = rhhtplus1;\n\t\trhd = rhdtplus1;\n\
+\t\trdd = rddtplus1;\n\t}\n\tgsl_vector_set(f, 0, rhh);\n\tgsl_vector_set(f, \
+1, rhd);\n\tgsl_vector_set(f, 2, rdd);\>\""}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"Export", "[", 
    RowBox[{
     RowBox[{"destdir", "<>", "\"\<relvals.txt\>\""}], ",", "str"}], "]"}], 
   ";"}]}], "Input",
- CellChangeTimes->{{3.68259371371527*^9, 3.682593772392009*^9}, {
-  3.682593816998168*^9, 3.682593838735147*^9}, {3.6825938760937977`*^9, 
-  3.68259392524818*^9}, {3.682593989922264*^9, 3.682594001021886*^9}, {
-  3.6825942018430367`*^9, 3.682594252306324*^9}, {3.6825945708236217`*^9, 
-  3.6825945712229958`*^9}, {3.6825946254331093`*^9, 3.6825946256430902`*^9}, {
-  3.68259529837167*^9, 3.6825953146425343`*^9}, {3.682610917267015*^9, 
-  3.682610943685817*^9}, {3.6826112671572237`*^9, 3.682611281271693*^9}, {
-  3.6827564741955347`*^9, 3.682756475671907*^9}, {3.6827586164981337`*^9, 
-  3.682758625128002*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({rsols}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525485054*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({rsols}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.6902945255021877`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({rsols}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525518673*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Export", "::", "nodir"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Directory \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/\\\"\\)\[NoBreak] does not exist. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/Export\\\", ButtonNote -> \
-\\\"Export::nodir\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.6902945255604877`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"OpenWrite", "::", "noopen"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Cannot open \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/relvals.txt\\\"\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
-\\\"OpenWrite::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.6902945255893784`*^9}]
-}, Open  ]],
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQA2IQXffYrOxv/mvHsO6eWhD974N8M4gObrveCqJTGJq7
+QLT4x+UTQLRB894ZINprs8IsEK3xy2oziM4427kTRMtERz0E0SeU0sE0xx3d
+FyDaaIoJmN7xxNvmH5Be0h9iB6KTu1fcYS147Wj26et9EP2LPZWDDUhv26jB
+BaIvObq99wHSzg2lYHrbB/7fvkB6hoTKHxDNHX/s2Mmi145uojLHQbSAaNu8
+9XVAfxRfXwSi/y+ctRlE+/D83Q6iq+bcYtsApNtfu3CBaN8XrEogWvrZI1UQ
+vUY22QFEHzDVdwTREum+biCa44aKN4junL45GETPWDAvDER3LVbKA9E2i68V
+g2jzWaIzN4Hka1+DaQAE3r9H
+  "]],
 
 Cell["Parameters:", "Text",
  CellChangeTimes->{{3.6821624526654873`*^9, 3.682162453913859*^9}}],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -5175,8 +5015,8 @@ Cell[BoxData[{
      RowBox[{"md", "[", "0", "]"}], ",", 
      RowBox[{"mh", "[", "1", "]"}], ",", 
      RowBox[{"md", "[", "1", "]"}], ",", 
-     RowBox[{"mh", "[", "2", "]"}], ",", "pdhinit", ",", "phhinit"}], "}"}]}],
-   ";"}], "\[IndentingNewLine]", 
+     RowBox[{"mh", "[", "2", "]"}], ",", "pdhinit", ",", "phhinit", ",", 
+     "err"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"variables", "=", 
@@ -5245,61 +5085,8 @@ Cell[BoxData[{
    3.682335793435977*^9}, {3.682594969037878*^9, 3.682594980745699*^9}, {
    3.682613114300337*^9, 3.682613122530101*^9}, {3.682752486814995*^9, 
    3.682752494529079*^9}, 3.684042260607793*^9, {3.684042371194415*^9, 
-   3.6840423773158703`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Export", "::", "nodir"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Directory \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/\\\"\\)\[NoBreak] does not exist. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/Export\\\", ButtonNote -> \
-\\\"Export::nodir\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525643097*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"OpenWrite", "::", "noopen"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Cannot open \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/params.txt\\\"\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
-\\\"OpenWrite::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525673238*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Export", "::", "nodir"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Directory \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/\\\"\\)\[NoBreak] does not exist. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/Export\\\", ButtonNote -> \
-\\\"Export::nodir\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.6902945257187347`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"OpenWrite", "::", "noopen"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Cannot open \
-\[NoBreak]\\!\\(\\\"/home/bram/Projects/parental_effects_freq_dep/src/\
-numerical/all_p/variables.txt\\\"\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
-\\\"OpenWrite::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294525749186*^9}]
-}, Open  ]]
-}, Closed]],
+   3.6840423773158703`*^9}, {3.690304603632051*^9, 3.690304604163265*^9}}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5542,23 +5329,22 @@ gsl_vector_set(f, 3, vd(1));\n\>\""}]}], ";"}], "\[IndentingNewLine]",
 Cell["Relatedness coefficients", "Text",
  CellChangeTimes->{{3.68259363336897*^9, 3.6825936366162*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[{
- RowBox[{"str", "=", 
-  RowBox[{
-  "\"\<\n\tdouble rhhtplus1;\n\tdouble rhdtplus1;\n\tdouble rddtplus1;\n\tfor \
-(int rtime=0; rtime<1e07; ++rtime) {\n\t\trhhtplus1 = bound01(\>\"", "<>", 
-   RowBox[{"toC", "[", "drhhdt", "]"}], "<>", 
-   "\"\<);\n\t\trhdtplus1 = bound01(\>\"", "<>", 
-   RowBox[{"toC", "[", "drhddt", "]"}], "<>", 
-   "\"\<);\n\t\trddtplus1 = bound01(\>\"", "<>", 
-   RowBox[{"toC", "[", "drdddt", "]"}], "<>", 
-   "\"\<);\n\n\t\tif (\n\t\t\t\tfabs(rhhtplus1 - rhh) < 1e-07 &&\n\t\t\t\t\
+ RowBox[{
+  RowBox[{"str", "=", 
+   RowBox[{
+   "\"\<\n\tdouble rhhtplus1;\n\tdouble rhdtplus1;\n\tdouble rddtplus1;\n\t\
+for (int rtime=0; rtime<1e07; ++rtime) {\n\t\trhhtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", "drhhdt", "]"}], "<>", 
+    "\"\<);\n\t\trhdtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", "drhddt", "]"}], "<>", 
+    "\"\<);\n\t\trddtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", "drdddt", "]"}], "<>", 
+    "\"\<);\n\n\t\tif (\n\t\t\t\tfabs(rhhtplus1 - rhh) < 1e-07 &&\n\t\t\t\t\
 fabs(rhdtplus1 - rhd) < 1e-07 &&\n\t\t\t\tfabs(rddtplus1 - rdd) < 1e-07\n\t\t\
 \t)\n\t\t{\n\t\t\tbreak;\n\t\t}\n\t\trhh = rhhtplus1;\n\t\trhd = rhdtplus1;\n\
 \t\trdd = rddtplus1;\n\t}\n\tgsl_vector_set(f, 0, rhh);\n\tgsl_vector_set(f, \
-1, rhd);\n\tgsl_vector_set(f, 2, rdd);\n\>\""}]}], "\n", 
+1, rhd);\n\tgsl_vector_set(f, 2, rdd);\>\""}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"Export", "[", 
    RowBox[{
@@ -5570,46 +5356,9 @@ QLT4x+UTQLRB894ZINprs8IsEK3xy2oziM4427kTRMtERz0E0SeU0sE0xx3d
 FyDaaIoJmN7xxNvmH5Be0h9iB6KTu1fcYS147Wj26et9EP2LPZWDDUhv26jB
 BaIvObq99wHSzg2lYHrbB/7fvkB6hoTKHxDNHX/s2Mmi145uojLHQbSAaNu8
 9XVAfxRfXwSi/y+ctRlE+/D83Q6iq+bcYtsApNtfu3CBaN8XrEogWvrZI1UQ
-vUY22QFEHzDVdwTREum+biCa44aKN4junL45GETPWDAvDER3LVbKA9Gz0h8U
-gWgAV0i2oQ==
+vUY22QFEHzDVdwTREum+biCa44aKN4junL45GETPWDAvDER3LVbKA9E2i68V
+g2gAVcW2dg==
   "]],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({rsols}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294542608066*^9, 3.690298224245348*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({rsols}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294542608066*^9, 3.690298224262882*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\({rsols}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.690294542608066*^9, 3.69029822428479*^9}]
-}, Open  ]],
 
 Cell["Parameters:", "Text",
  CellChangeTimes->{{3.6821624526654873`*^9, 3.682162453913859*^9}}],
@@ -5891,46 +5640,45 @@ Cell[BoxData[
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"str", "=", "\"\<\>\""}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vh_1_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vh", "[", "1", "]"}], "/.", "solrv1"}], "/.", "subslistpx"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vh_2_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vh", "[", "2", "]"}], "/.", "solrv1"}], "/.", "subslistpx"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vd_0_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vd", "[", "0", "]"}], "/.", "solrv1"}], "/.", "subslistpx"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double vd_1_tplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"vd", "[", "1", "]"}], "/.", "solrv1"}], "/.", "subslistpx"}], 
-     "]"}], "<>", "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
   RowBox[{"str", "=", 
    RowBox[{
-   "str", "<>", 
-    "\"\<gsl_vector_set(f, 0, vh_1_tplus1);\\ngsl_vector_set(f, 1, \
-vh_2_tplus1);\\ngsl_vector_set(f, 2, vd_0_tplus1);\\ngsl_vector_set(f, 3, \
-vd_1_tplus1);\>\""}]}], ";"}], "\[IndentingNewLine]", 
+   "\"\<\n\tdouble vh_1_tplus1;\n\tdouble vh_2_tplus1;\n\tdouble vd_0_tplus1;\
+\n\tdouble vd_1_tplus1;\n\tfor (int rtime=0;rtime<1e07;++rtime) {\n\t\t\
+vh_1_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vh", "[", "1", "]"}], "+", 
+       RowBox[{"eul", 
+        RowBox[{"(", "dvh1dt", ")"}]}]}], "/.", "subslistponly"}], "]"}], 
+    "<>", "\"\<);\n\t\tvh_2_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vh", "[", "2", "]"}], "+", 
+       RowBox[{"eul", 
+        RowBox[{"(", "dvh2dt", ")"}]}]}], "/.", "subslistponly"}], "]"}], 
+    "<>", "\"\<);\n\t\tvd_0_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vd", "[", "0", "]"}], "+", 
+       RowBox[{"eul", 
+        RowBox[{"(", "dvd0dt", ")"}]}]}], "/.", "subslistponly"}], "]"}], 
+    "<>", "\"\<);\n\t\tvd_1_tplus1 = bound0(\>\"", "<>", 
+    RowBox[{"toC", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vd", "[", "1", "]"}], "+", 
+       RowBox[{"eul", 
+        RowBox[{"(", "dvd1dt", ")"}]}]}], "/.", "subslistponly"}], "]"}], 
+    "<>", "\"\<);\n\n\t\tif (fabs(vh_1_tplus1 - vh(1)) < 1e-7 &&\n\t\t\t\t\
+fabs(vh_2_tplus1 - vh(2)) < 1e-7 &&\n\t\t\t\tfabs(vd_0_tplus1 - vd(0)) < 1e-7 \
+&&\n\t\t\t\tfabs(vd_1_tplus1 - vd(1)) < 1e-7)\n\t\t{\n\t\t\tbreak;\n\t\t}\n\n\
+\t\tvh(1) = vh_1_tplus1;\n\t\tvh(2) = vh_2_tplus1;\n\t\tvd(0) = vd_0_tplus1;\n\
+\t\tvd(1) = vd_1_tplus1;\n\t}\n\tgsl_vector_set(f, 0, vh(1));\n\t\
+gsl_vector_set(f, 1, vh(2));\n\tgsl_vector_set(f, 2, vd(0));\n\t\
+gsl_vector_set(f, 3, vd(1));\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Export", "[", 
    RowBox[{
@@ -5943,57 +5691,44 @@ vd_1_tplus1);\>\""}]}], ";"}], "\[IndentingNewLine]",
   3.682594281286126*^9}, {3.68259457678067*^9, 3.682594579536339*^9}, {
   3.682610346972528*^9, 3.682610366288414*^9}, {3.682756471064345*^9, 
   3.6827564728786907`*^9}, {3.684060719316674*^9, 3.6840607240580273`*^9}, {
-  3.684060902510347*^9, 3.684060909248065*^9}}],
+  3.690293937603519*^9, 3.690294042466384*^9}, {3.690294210847473*^9, 
+  3.6902945034401503`*^9}, {3.690298607256329*^9, 3.690298607789392*^9}, {
+  3.6903000954813232`*^9, 3.690300124369986*^9}, {3.6903001765543747`*^9, 
+  3.690300190948062*^9}}],
 
 Cell["Relatedness coefficients", "Text",
  CellChangeTimes->{{3.68259363336897*^9, 3.6825936366162*^9}}],
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"str", "=", "\"\<\>\""}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double rhhtplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{"rhh", "/.", "rsols"}], "/.", "subslistpx"}], "]"}], "<>", 
-    "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double rhdtplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{"rhd", "/.", "rsols"}], "/.", "subslistpx"}], "]"}], "<>", 
-    "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double rddtplus1 = \>\"", "<>", 
-    RowBox[{"toC", "[", 
-     RowBox[{
-      RowBox[{"rdd", "/.", "rsols"}], "/.", "subslistpx"}], "]"}], "<>", 
-    "\"\<;\\n\\n\>\""}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
   RowBox[{"str", "=", 
    RowBox[{
-   "str", "<>", 
-    "\"\<gsl_vector_set(f, 0, rhhtplus1);\\ngsl_vector_set(f, 1, \
-rhdtplus1);\\ngsl_vector_set(f, 2, rddtplus1);\\n\>\""}]}], 
-  ";"}], "\[IndentingNewLine]", 
+   "\"\<\n\tdouble rhhtplus1;\n\tdouble rhdtplus1;\n\tdouble rddtplus1;\n\t\
+for (int rtime=0; rtime<1e07; ++rtime) {\n\t\trhhtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", "drhhdt", "]"}], "<>", 
+    "\"\<);\n\t\trhdtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", "drhddt", "]"}], "<>", 
+    "\"\<);\n\t\trddtplus1 = bound01(\>\"", "<>", 
+    RowBox[{"toC", "[", "drdddt", "]"}], "<>", 
+    "\"\<);\n\n\t\tif (\n\t\t\t\tfabs(rhhtplus1 - rhh) < 1e-07 &&\n\t\t\t\t\
+fabs(rhdtplus1 - rhd) < 1e-07 &&\n\t\t\t\tfabs(rddtplus1 - rdd) < 1e-07\n\t\t\
+\t)\n\t\t{\n\t\t\tbreak;\n\t\t}\n\t\trhh = rhhtplus1;\n\t\trhd = rhdtplus1;\n\
+\t\trdd = rddtplus1;\n\t}\n\tgsl_vector_set(f, 0, rhh);\n\tgsl_vector_set(f, \
+1, rhd);\n\tgsl_vector_set(f, 2, rdd);\>\""}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"Export", "[", 
    RowBox[{
     RowBox[{"destdir", "<>", "\"\<relvals.txt\>\""}], ",", "str"}], "]"}], 
   ";"}]}], "Input",
- CellChangeTimes->{{3.68259371371527*^9, 3.682593772392009*^9}, {
-  3.682593816998168*^9, 3.682593838735147*^9}, {3.6825938760937977`*^9, 
-  3.68259392524818*^9}, {3.682593989922264*^9, 3.682594001021886*^9}, {
-  3.6825942018430367`*^9, 3.682594252306324*^9}, {3.6825945708236217`*^9, 
-  3.6825945712229958`*^9}, {3.6825946254331093`*^9, 3.6825946256430902`*^9}, {
-  3.68259529837167*^9, 3.6825953146425343`*^9}, {3.682610917267015*^9, 
-  3.682610943685817*^9}, {3.6826112671572237`*^9, 3.682611281271693*^9}, {
-  3.6827564741955347`*^9, 3.682756475671907*^9}, {3.6827586164981337`*^9, 
-  3.682758625128002*^9}, {3.684060726199102*^9, 3.684060728877597*^9}, {
-  3.6840609127929707`*^9, 3.684060915529316*^9}}],
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBWIQXffYrOxv/mvHsO6eWhD974N8M4gObrveCqJTGJq7
+QLT4x+UTQLRB894ZINprs8IsEK3xy2oziM4427kTRMtERz0E0SeU0sE0xx3d
+FyDaaIoJmN7xxNvmH5Be0h9iB6KTu1fcYS147Wj26et9EP2LPZWDDUhv26jB
+BaIvObq99wHSzg2lYHrbB/7fvkB6hoTKHxDNHX/s2Mmi145uojLHQbSAaNu8
+9XVAfxRfXwSi/y+ctRlE+/D83Q6iq+bcYtsApNtfu3CBaN8XrEogWvrZI1UQ
+vUY22QFEHzDVdwTREum+biCa44aKN4junL45GETPWDAvDER3LVbKA9E2i68V
+g2gAVcW2dg==
+  "]],
 
 Cell["Parameters:", "Text",
  CellChangeTimes->{{3.6821624526654873`*^9, 3.682162453913859*^9}}],
@@ -6297,184 +6032,154 @@ Cell[116693, 3272, 1579, 27, 45, "Output"]
 Cell[118287, 3302, 214, 6, 45, "Input"],
 Cell[118504, 3310, 155, 3, 45, "Text"],
 Cell[118662, 3315, 130, 2, 45, "Text"],
-Cell[118795, 3319, 2648, 67, 191, "Input"],
+Cell[118795, 3319, 3115, 80, 220, "Input"],
 Cell[CellGroupData[{
-Cell[121468, 3390, 119, 2, 45, "Input"],
-Cell[121590, 3394, 458, 6, 45, "Output"]
+Cell[121935, 3403, 142, 3, 45, "Input"],
+Cell[122080, 3408, 480, 7, 67, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[122085, 3405, 122, 2, 45, "Input"],
-Cell[122210, 3409, 417, 6, 45, "Output"]
+Cell[122597, 3420, 148, 3, 45, "Input"],
+Cell[122748, 3425, 436, 6, 67, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[122664, 3420, 924, 23, 45, "Input"],
-Cell[123591, 3445, 307, 6, 45, "Output"]
+Cell[123221, 3436, 384, 11, 45, "Input"],
+Cell[123608, 3449, 349, 10, 67, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[123994, 3464, 1064, 25, 45, "Input"],
+Cell[125061, 3491, 401, 8, 67, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[123959, 3458, 205, 3, 119, "Section"],
+Cell[125523, 3506, 205, 3, 119, "Section"],
 Cell[CellGroupData[{
-Cell[124189, 3465, 536, 13, 70, "Subsection"],
-Cell[124728, 3480, 281, 5, 45, "Text"],
-Cell[125012, 3487, 1012, 25, 81, "Input"],
-Cell[126027, 3514, 139, 1, 45, "Text"],
-Cell[126169, 3517, 636, 17, 83, "Input"],
-Cell[126808, 3536, 310, 6, 45, "Text"],
-Cell[127121, 3544, 919, 22, 81, "Input"],
-Cell[128043, 3568, 308, 6, 45, "Text"],
-Cell[128354, 3576, 873, 23, 81, "Input"],
-Cell[129230, 3601, 266, 5, 45, "Text"],
-Cell[129499, 3608, 2149, 56, 149, "Input"],
-Cell[131651, 3666, 218, 4, 45, "Text"],
-Cell[131872, 3672, 1414, 37, 81, "Input"],
-Cell[133289, 3711, 165, 3, 45, "Text"],
-Cell[133457, 3716, 1376, 37, 81, "Input"],
-Cell[134836, 3755, 539, 10, 45, "Input"]
+Cell[125753, 3513, 536, 13, 70, "Subsection"],
+Cell[126292, 3528, 281, 5, 45, "Text"],
+Cell[126576, 3535, 1012, 25, 81, "Input"],
+Cell[127591, 3562, 139, 1, 45, "Text"],
+Cell[127733, 3565, 636, 17, 83, "Input"],
+Cell[128372, 3584, 310, 6, 45, "Text"],
+Cell[128685, 3592, 919, 22, 81, "Input"],
+Cell[129607, 3616, 308, 6, 45, "Text"],
+Cell[129918, 3624, 873, 23, 81, "Input"],
+Cell[130794, 3649, 266, 5, 45, "Text"],
+Cell[131063, 3656, 2149, 56, 149, "Input"],
+Cell[133215, 3714, 218, 4, 45, "Text"],
+Cell[133436, 3720, 1414, 37, 81, "Input"],
+Cell[134853, 3759, 165, 3, 45, "Text"],
+Cell[135021, 3764, 1376, 37, 81, "Input"],
+Cell[136400, 3803, 539, 10, 45, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[135412, 3770, 494, 13, 70, "Subsection"],
-Cell[135909, 3785, 178, 4, 45, "Text"],
-Cell[136090, 3791, 803, 21, 81, "Input"],
-Cell[136896, 3814, 144, 1, 45, "Text"],
-Cell[137043, 3817, 636, 17, 83, "Input"],
-Cell[137682, 3836, 233, 5, 45, "Text"],
-Cell[137918, 3843, 738, 19, 81, "Input"],
-Cell[138659, 3864, 282, 6, 45, "Text"],
-Cell[138944, 3872, 855, 24, 81, "Input"],
-Cell[139802, 3898, 175, 4, 45, "Text"],
-Cell[139980, 3904, 2129, 58, 174, "Input"],
-Cell[142112, 3964, 165, 3, 45, "Text"],
-Cell[142280, 3969, 1335, 36, 81, "Input"],
-Cell[143618, 4007, 164, 3, 45, "Text"],
-Cell[143785, 4012, 1448, 38, 81, "Input"],
-Cell[145236, 4052, 534, 10, 69, "Input"]
+Cell[136976, 3818, 494, 13, 70, "Subsection"],
+Cell[137473, 3833, 178, 4, 45, "Text"],
+Cell[137654, 3839, 803, 21, 81, "Input"],
+Cell[138460, 3862, 144, 1, 45, "Text"],
+Cell[138607, 3865, 636, 17, 83, "Input"],
+Cell[139246, 3884, 233, 5, 45, "Text"],
+Cell[139482, 3891, 738, 19, 81, "Input"],
+Cell[140223, 3912, 282, 6, 45, "Text"],
+Cell[140508, 3920, 855, 24, 81, "Input"],
+Cell[141366, 3946, 175, 4, 45, "Text"],
+Cell[141544, 3952, 2129, 58, 174, "Input"],
+Cell[143676, 4012, 165, 3, 45, "Text"],
+Cell[143844, 4017, 1335, 36, 81, "Input"],
+Cell[145182, 4055, 164, 3, 45, "Text"],
+Cell[145349, 4060, 1448, 38, 81, "Input"],
+Cell[146800, 4100, 534, 10, 69, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[145807, 4067, 270, 9, 87, "Subsection"],
-Cell[146080, 4078, 178, 4, 66, "Text"],
-Cell[146261, 4084, 876, 22, 103, "Input"],
-Cell[147140, 4108, 187, 2, 66, "Text"],
-Cell[147330, 4112, 584, 16, 103, "Input"],
-Cell[147917, 4130, 179, 4, 66, "Text"],
-Cell[148099, 4136, 850, 21, 103, "Input"],
-Cell[148952, 4159, 233, 5, 66, "Text"],
-Cell[149188, 4166, 917, 23, 103, "Input"],
-Cell[150108, 4191, 162, 3, 66, "Text"],
-Cell[150273, 4196, 1771, 50, 103, "Input"],
-Cell[152047, 4248, 165, 3, 66, "Text"],
-Cell[152215, 4253, 1284, 35, 103, "Input"],
-Cell[153502, 4290, 164, 3, 66, "Text"],
-Cell[153669, 4295, 1346, 37, 103, "Input"],
-Cell[155018, 4334, 484, 9, 69, "Input"]
+Cell[147371, 4115, 270, 9, 87, "Subsection"],
+Cell[147644, 4126, 178, 4, 66, "Text"],
+Cell[147825, 4132, 876, 22, 103, "Input"],
+Cell[148704, 4156, 187, 2, 66, "Text"],
+Cell[148894, 4160, 584, 16, 103, "Input"],
+Cell[149481, 4178, 179, 4, 66, "Text"],
+Cell[149663, 4184, 850, 21, 103, "Input"],
+Cell[150516, 4207, 233, 5, 66, "Text"],
+Cell[150752, 4214, 917, 23, 103, "Input"],
+Cell[151672, 4239, 162, 3, 66, "Text"],
+Cell[151837, 4244, 1771, 50, 103, "Input"],
+Cell[153611, 4296, 165, 3, 66, "Text"],
+Cell[153779, 4301, 1284, 35, 103, "Input"],
+Cell[155066, 4338, 164, 3, 66, "Text"],
+Cell[155233, 4343, 1346, 37, 103, "Input"],
+Cell[156582, 4382, 484, 9, 69, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[155539, 4348, 271, 9, 87, "Subsection"],
-Cell[155813, 4359, 175, 4, 66, "Text"],
-Cell[155991, 4365, 936, 24, 103, "Input"],
-Cell[156930, 4391, 141, 1, 66, "Text"],
-Cell[157074, 4394, 564, 16, 103, "Input"],
-Cell[157641, 4412, 180, 4, 66, "Text"],
-Cell[157824, 4418, 616, 17, 103, "Input"],
-Cell[158443, 4437, 180, 4, 66, "Text"],
-Cell[158626, 4443, 807, 23, 103, "Input"],
-Cell[159436, 4468, 161, 3, 66, "Text"],
-Cell[159600, 4473, 1973, 56, 103, "Input"],
-Cell[161576, 4531, 165, 3, 66, "Text"],
-Cell[161744, 4536, 1337, 36, 103, "Input"],
-Cell[163084, 4574, 164, 3, 66, "Text"],
-Cell[163251, 4579, 1397, 38, 103, "Input"],
-Cell[164651, 4619, 438, 9, 69, "Input"]
+Cell[157103, 4396, 271, 9, 87, "Subsection"],
+Cell[157377, 4407, 175, 4, 66, "Text"],
+Cell[157555, 4413, 936, 24, 103, "Input"],
+Cell[158494, 4439, 141, 1, 66, "Text"],
+Cell[158638, 4442, 564, 16, 103, "Input"],
+Cell[159205, 4460, 180, 4, 66, "Text"],
+Cell[159388, 4466, 616, 17, 103, "Input"],
+Cell[160007, 4485, 180, 4, 66, "Text"],
+Cell[160190, 4491, 807, 23, 103, "Input"],
+Cell[161000, 4516, 161, 3, 66, "Text"],
+Cell[161164, 4521, 1973, 56, 103, "Input"],
+Cell[163140, 4579, 165, 3, 66, "Text"],
+Cell[163308, 4584, 1337, 36, 103, "Input"],
+Cell[164648, 4622, 164, 3, 66, "Text"],
+Cell[164815, 4627, 1397, 38, 103, "Input"],
+Cell[166215, 4667, 438, 9, 69, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[165126, 4633, 112, 1, 84, "Subsection"],
-Cell[165241, 4636, 796, 23, 103, "Input"]
-}, Open  ]]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[166086, 4665, 293, 3, 72, "Section"],
-Cell[166382, 4670, 236, 6, 45, "Input"],
-Cell[166621, 4678, 468, 10, 45, "Input"],
-Cell[167092, 4690, 139, 2, 45, "Text"],
-Cell[167234, 4694, 607, 13, 45, "Input"],
-Cell[CellGroupData[{
-Cell[167866, 4711, 1974, 48, 539, "Input"],
-Cell[169843, 4761, 499, 11, 70, "Message"],
-Cell[170345, 4774, 527, 11, 70, "Message"]
-}, Open  ]],
-Cell[170887, 4788, 102, 1, 45, "Text"],
-Cell[CellGroupData[{
-Cell[171014, 4793, 3184, 75, 278, "Input"],
-Cell[174201, 4870, 499, 11, 70, "Message"],
-Cell[174703, 4883, 520, 11, 70, "Message"]
-}, Open  ]],
-Cell[175238, 4897, 101, 1, 66, "Text"],
-Cell[175342, 4900, 458, 16, 69, "Input"],
-Cell[CellGroupData[{
-Cell[175825, 4920, 2159, 53, 340, "Input"],
-Cell[177987, 4975, 532, 10, 70, "Message"],
-Cell[178522, 4987, 534, 10, 70, "Message"],
-Cell[179059, 4999, 532, 10, 70, "Message"],
-Cell[179594, 5011, 532, 10, 70, "Message"],
-Cell[180129, 5023, 501, 11, 70, "Message"],
-Cell[180633, 5036, 521, 11, 70, "Message"]
-}, Open  ]],
-Cell[181169, 5050, 103, 1, 66, "Text"],
-Cell[CellGroupData[{
-Cell[181297, 5055, 1869, 44, 295, "Input"],
-Cell[183169, 5101, 531, 10, 70, "Message"],
-Cell[183703, 5113, 533, 10, 70, "Message"],
-Cell[184239, 5125, 531, 10, 70, "Message"],
-Cell[184773, 5137, 501, 11, 70, "Message"],
-Cell[185277, 5150, 523, 11, 70, "Message"]
-}, Open  ]],
-Cell[185815, 5164, 95, 1, 66, "Text"],
-Cell[CellGroupData[{
-Cell[185935, 5169, 3114, 78, 655, "Input"],
-Cell[189052, 5249, 499, 11, 70, "Message"],
-Cell[189554, 5262, 520, 11, 70, "Message"],
-Cell[190077, 5275, 501, 11, 70, "Message"],
-Cell[190581, 5288, 523, 11, 70, "Message"]
+Cell[166690, 4681, 112, 1, 84, "Subsection"],
+Cell[166805, 4684, 796, 23, 103, "Input"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[191153, 5305, 300, 4, 72, "Section"],
-Cell[191456, 5311, 236, 6, 45, "Input"],
-Cell[191695, 5319, 521, 10, 45, "Input"],
-Cell[192219, 5331, 139, 2, 45, "Text"],
-Cell[192361, 5335, 991, 24, 45, "Input"],
-Cell[193355, 5361, 2088, 50, 539, "Input"],
-Cell[195446, 5413, 102, 1, 45, "Text"],
-Cell[195551, 5416, 2209, 44, 133, "Input"],
-Cell[197763, 5462, 101, 1, 45, "Text"],
-Cell[197867, 5465, 458, 16, 45, "Input"],
-Cell[198328, 5483, 2618, 56, 887, "Input"],
-Cell[200949, 5541, 103, 1, 45, "Text"],
-Cell[CellGroupData[{
-Cell[201077, 5546, 1381, 28, 771, "Input"],
-Cell[202461, 5576, 553, 10, 34, "Message"],
-Cell[203017, 5588, 553, 10, 34, "Message"],
-Cell[203573, 5600, 552, 10, 34, "Message"]
-}, Open  ]],
-Cell[204140, 5613, 95, 1, 45, "Text"],
-Cell[204238, 5616, 3036, 75, 423, "Input"]
+Cell[167650, 4713, 293, 3, 72, "Section"],
+Cell[167946, 4718, 236, 6, 45, "Input"],
+Cell[168185, 4726, 498, 10, 45, "Input"],
+Cell[168686, 4738, 139, 2, 45, "Text"],
+Cell[168828, 4742, 607, 13, 45, "Input"],
+Cell[169438, 4757, 2033, 49, 539, "Input"],
+Cell[171474, 4808, 102, 1, 45, "Text"],
+Cell[171579, 4811, 3241, 76, 278, "Input"],
+Cell[174823, 4889, 101, 1, 45, "Text"],
+Cell[174927, 4892, 458, 16, 45, "Input"],
+Cell[175388, 4910, 2705, 57, 887, "Input"],
+Cell[178096, 4969, 103, 1, 45, "Text"],
+Cell[178202, 4972, 1525, 32, 742, "Input"],
+Cell[179730, 5006, 95, 1, 45, "Text"],
+Cell[179828, 5009, 3175, 78, 423, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[207311, 5696, 354, 4, 119, "Section"],
-Cell[207668, 5702, 236, 6, 45, "Input"],
-Cell[207907, 5710, 571, 12, 45, "Input"],
-Cell[208481, 5724, 139, 2, 45, "Text"],
-Cell[208623, 5728, 1042, 24, 45, "Input"],
-Cell[209668, 5754, 2073, 50, 539, "Input"],
-Cell[211744, 5806, 102, 1, 45, "Text"],
-Cell[211849, 5809, 2689, 59, 162, "Input"],
-Cell[214541, 5870, 101, 1, 66, "Text"],
-Cell[214645, 5873, 458, 16, 69, "Input"],
-Cell[215106, 5891, 2256, 54, 340, "Input"],
-Cell[217365, 5947, 103, 1, 66, "Text"],
-Cell[217471, 5950, 1966, 45, 295, "Input"],
-Cell[219440, 5997, 95, 1, 66, "Text"],
-Cell[219538, 6000, 3054, 75, 655, "Input"]
+Cell[183040, 5092, 300, 4, 119, "Section"],
+Cell[183343, 5098, 236, 6, 45, "Input"],
+Cell[183582, 5106, 521, 10, 45, "Input"],
+Cell[184106, 5118, 139, 2, 45, "Text"],
+Cell[184248, 5122, 991, 24, 45, "Input"],
+Cell[185242, 5148, 2088, 50, 539, "Input"],
+Cell[187333, 5200, 102, 1, 45, "Text"],
+Cell[187438, 5203, 2209, 44, 133, "Input"],
+Cell[189650, 5249, 101, 1, 45, "Text"],
+Cell[189754, 5252, 458, 16, 45, "Input"],
+Cell[190215, 5270, 2618, 56, 887, "Input"],
+Cell[192836, 5328, 103, 1, 45, "Text"],
+Cell[192942, 5331, 1405, 29, 742, "Input"],
+Cell[194350, 5362, 95, 1, 45, "Text"],
+Cell[194448, 5365, 3036, 75, 423, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[197521, 5445, 354, 4, 119, "Section"],
+Cell[197878, 5451, 236, 6, 45, "Input"],
+Cell[198117, 5459, 571, 12, 45, "Input"],
+Cell[198691, 5473, 139, 2, 45, "Text"],
+Cell[198833, 5477, 1042, 24, 45, "Input"],
+Cell[199878, 5503, 2073, 50, 539, "Input"],
+Cell[201954, 5555, 102, 1, 45, "Text"],
+Cell[202059, 5558, 2689, 59, 162, "Input"],
+Cell[204751, 5619, 101, 1, 45, "Text"],
+Cell[204855, 5622, 458, 16, 45, "Input"],
+Cell[205316, 5640, 2618, 56, 887, "Input"],
+Cell[207937, 5698, 103, 1, 45, "Text"],
+Cell[208043, 5701, 1405, 29, 742, "Input"],
+Cell[209451, 5732, 95, 1, 45, "Text"],
+Cell[209549, 5735, 3054, 75, 423, "Input"]
 }, Open  ]]
 }, Open  ]]
 }

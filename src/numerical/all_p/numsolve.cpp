@@ -28,13 +28,22 @@ struct rparams
     // VARS
 };
 
-double bound(double val)
+double bound0(double val)
+{
+    if (val < 0)
+    {
+        val = 0.001;
+    }
+
+    return(val);
+}
+
+double bound01(double val)
 {
     val = val < 0 ? 0.0001 : val > 1.0 ? 0.9999 : val;
 
     return(val);
 }
-
 
 // recursions of all the patch frequencies
 int psys_recur(void *params, gsl_vector *f)

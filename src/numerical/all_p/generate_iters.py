@@ -3,24 +3,13 @@
 import numpy as np
 import itertools, sys
 
-step = 0.02
+step = 0.05
 
-# order of the payoffs
-# first element is Cc
-# 2nd is Dc
-# 3rd is Cd
-# 4th is Dd
-mortalities = [ 0.5, 1.0, 1.5, 2.0 ]
+d = [ 0.1, 0.5, 1.0 ]
 
-mortalities_ordering = [ 
-        [ 0, 1, 2, 3 ],  # Cc > Dc > Cd > Dd (Soldier's dilemma)
-        [ 0, 1, 3, 2 ],  # Cc > Dc > Dd > Cd (Stag hunt)
-        [ 1, 0, 2, 3 ],  # Dc > Cc > Cd > Dd (Hawk Dove)
-        [ 1, 0, 3, 2 ]]  # Dc > Cc > Dd > Cd (Prisoner's dilemma)
-        
+v = list(np.arange(0,1+step,step))
+c = list(np.arange(0,1+step,step))
 
-
-d = [ 0.1 ] #0.05, 0.1, 0.2, 0.5, 1.0 ]
 
 exe = "./numsolve"
 
@@ -29,27 +18,32 @@ phh_init = [ 0.5 ]
 
 ctr = 0
 
-for mortality_i in mortalities_ordering:
-    for d_i in d:
-        for pdh_i in pdh_init: 
-            for phh_i in phh_init:
-                print("echo " + str(ctr))
-                ctr+=1
-                print(exe + " 100000000 " 
-                        + str(d_i) + " " 
-                        + str(mortalities[mortality_i[0]]) + " " 
-                        + str(mortalities[mortality_i[1]]) + " " 
-                        + str(mortalities[mortality_i[2]]) + " " 
-                        + str(mortalities[mortality_i[3]]) + " " 
-                        + str(pdh_i) + " "
-                        + str(phh_i) + " "
-                        + str(0.33) + " "
-                        + str(0.33) + " "
-                        + str(pdh_i) + " "
-                        + str(pdh_i) + " "
-                        + str(phh_i) + " "
-                        + str(phh_i) + " "
-                        + " 0.1 0.1 0.1 "
-                        + " 1.0 1.0 1.0 1.0 "
-                        )
+error = [ 0, 0.02 ]
+
+for v_i in v:
+    for c_i in c:
+        for d_i in d:
+            for pdh_i in pdh_init: 
+                for phh_i in phh_init:
+                    for error_i in error:
+                        print("echo " + str(ctr))
+                        ctr+=1
+                        print(exe + " 100000000 " 
+                                + str(d_i) + " " 
+                                + str(1.0 - v_i/2.0) + " " #md_0
+                                + str(1.0 - v_i) + " "  #mh_1
+                                + str(1.0) + " "  #md_1 
+                                + str(1.0 - (v_i-c_i)/2) + " "  #mh_2
+                                + str(pdh_i) + " "
+                                + str(phh_i) + " "
+                                + str(error_i) + " "
+                                + str(0.33) + " "
+                                + str(0.33) + " "
+                                + str(pdh_i) + " "
+                                + str(pdh_i) + " "
+                                + str(phh_i) + " "
+                                + str(phh_i) + " "
+                                + " 0.1 0.1 0.1 "
+                                + " 1.0 1.0 1.0 1.0 "
+                                )
 

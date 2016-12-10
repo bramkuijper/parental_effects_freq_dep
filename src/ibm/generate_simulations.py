@@ -8,7 +8,7 @@ step = 0.05
 cvals = list(np.arange(0, 1.0+step, step))
 vvals = list(np.arange(0, 1.0+step, step))
 
-dvals = [ 0, 0.1, 0.25, 0.5, 1.0 ] 
+dvals = [ 0.1, 0.5, 1.0 ] 
 
 exe = "./xfreq_dep"
 

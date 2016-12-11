@@ -10,8 +10,8 @@ vvals = list(np.arange(0, 1.0+step, step))
 
 dvals = [ 0.1, 0.5, 1.0 ] 
 
-exe = "./xfreq_dep"
-
+#exe = "./xfreq_dep"
+exe = "./xphh_pdh_freq_dep"
 
 nrep=1
 ctr = 0

@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[    240787,       6570]
-NotebookOptionsPosition[    227551,       6193]
-NotebookOutlinePosition[    227989,       6210]
-CellTagsIndexPosition[    227946,       6207]
+NotebookDataLength[    241278,       6585]
+NotebookOptionsPosition[    227928,       6204]
+NotebookOutlinePosition[    228366,       6221]
+CellTagsIndexPosition[    228323,       6218]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -5895,8 +5895,8 @@ rtime=0;rtime<1e7;++rtime)\n{\\n\n df0dt=\>\"", "<>",
    RowBox[{
    "str", "<>", 
     "\"\<if (fabs(df0dt-f(0))<1e-7 && fabs(df1dt-f(1))<1e-7)\n{\\n\n\
-f(0)=bound(df0dt);\\n\nf(1)=bound(df1dt);\\n\nbreak;\n}\n\
-f(0)=bound(df0dt);\\n\nf(1)=bound(df1dt);\\n\n}\\n\>\""}]}], 
+f(0)=bound01(df0dt);\\n\nf(1)=bound01(df1dt);\\n\nbreak;\n}\n\
+f(0)=bound01(df0dt);\\n\nf(1)=bound01(df1dt);\\n\n}\\n\>\""}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
@@ -5919,7 +5919,7 @@ f(0)=bound(df0dt);\\n\nf(1)=bound(df1dt);\\n\n}\\n\>\""}]}],
   3.6823374847557*^9, 3.682337501625996*^9}, {3.682338636259857*^9, 
   3.68233863667269*^9}, {3.6827564631202908`*^9, 3.682756464077887*^9}, {
   3.684060654639913*^9, 3.6840606568830214`*^9}, {3.68406081087127*^9, 
-  3.684060813064576*^9}}],
+  3.684060813064576*^9}, {3.690436795903681*^9, 3.690436803141881*^9}}],
 
 Cell["Selection gradients:", "Text",
  CellChangeTimes->{{3.682162445075205*^9, 3.682162448753883*^9}}],
@@ -5927,7 +5927,7 @@ Cell["Selection gradients:", "Text",
 Cell[BoxData[{
  RowBox[{
   RowBox[{"str", "=", 
-   RowBox[{"\"\<double phhtplus1=bound(\>\"", "<>", 
+   RowBox[{"\"\<double phhtplus1=bound01(\>\"", "<>", 
     RowBox[{"toC", "[", 
      RowBox[{
       RowBox[{"phh", "+", 
@@ -5942,7 +5942,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"str", "=", 
-   RowBox[{"str", "<>", "\"\<double pdhtplus1=bound(\>\"", "<>", 
+   RowBox[{"str", "<>", "\"\<double pdhtplus1=bound01(\>\"", "<>", 
     RowBox[{"toC", "[", 
      RowBox[{
       RowBox[{"pdh", "+", 
@@ -5983,7 +5983,8 @@ Cell[BoxData[{
    3.682752471623835*^9}, 3.6827527870913343`*^9, {3.682755722838686*^9, 
    3.6827557242862*^9}, {3.6827564661991787`*^9, 3.6827564688454523`*^9}, {
    3.684058922741806*^9, 3.6840589589719887`*^9}, {3.684060588091708*^9, 
-   3.684060692588243*^9}, {3.68406081736339*^9, 3.684060896162661*^9}}],
+   3.684060692588243*^9}, {3.68406081736339*^9, 3.684060896162661*^9}, {
+   3.690436760717145*^9, 3.6904367630523033`*^9}}],
 
 Cell["Reproductive values", "Text",
  CellChangeTimes->{{3.682593141350663*^9, 3.682593144663989*^9}}],
@@ -6120,8 +6121,8 @@ Cell[BoxData[{
      RowBox[{"md", "[", "0", "]"}], ",", 
      RowBox[{"mh", "[", "1", "]"}], ",", 
      RowBox[{"md", "[", "1", "]"}], ",", 
-     RowBox[{"mh", "[", "2", "]"}], ",", "pdhinit", ",", "phhinit"}], "}"}]}],
-   ";"}], "\[IndentingNewLine]", 
+     RowBox[{"mh", "[", "2", "]"}], ",", "pdhinit", ",", "phhinit", ",", 
+     "err"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"variables", "=", 
@@ -6187,7 +6188,17 @@ Cell[BoxData[{
    3.682613114300337*^9, 3.682613122530101*^9}, {3.682752486814995*^9, 
    3.682752494529079*^9}, 3.684042260607793*^9, {3.684042371194415*^9, 
    3.6840423773158703`*^9}, {3.684060741429792*^9, 3.6840607476403303`*^9}, {
-   3.684060920419674*^9, 3.6840609425056543`*^9}}]
+   3.684060920419674*^9, 3.6840609425056543`*^9}, {3.690436067227174*^9, 
+   3.69043606808987*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["c"], "Input",
+ CellChangeTimes->{3.690436662746368*^9}],
+
+Cell[BoxData["c"], "Output",
+ CellChangeTimes->{3.6904366933415413`*^9, 3.690436766891073*^9}]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
@@ -6560,16 +6571,20 @@ Cell[212373, 5820, 236, 6, 45, "Input"],
 Cell[212612, 5828, 573, 11, 45, "Input"],
 Cell[213188, 5841, 139, 2, 45, "Text"],
 Cell[213330, 5845, 1042, 24, 45, "Input"],
-Cell[214375, 5871, 2073, 50, 539, "Input"],
-Cell[216451, 5923, 102, 1, 45, "Text"],
-Cell[216556, 5926, 2689, 59, 162, "Input"],
-Cell[219248, 5987, 101, 1, 45, "Text"],
-Cell[219352, 5990, 458, 16, 45, "Input"],
-Cell[219813, 6008, 2704, 57, 887, "Input"],
-Cell[222520, 6067, 103, 1, 45, "Text"],
-Cell[222626, 6070, 1742, 39, 742, "Input"],
-Cell[224371, 6111, 95, 1, 45, "Text"],
-Cell[224469, 6114, 3054, 75, 423, "Input"]
+Cell[214375, 5871, 2127, 50, 539, "Input"],
+Cell[216505, 5923, 102, 1, 45, "Text"],
+Cell[216610, 5926, 2745, 60, 162, "Input"],
+Cell[219358, 5988, 101, 1, 45, "Text"],
+Cell[219462, 5991, 458, 16, 45, "Input"],
+Cell[219923, 6009, 2704, 57, 887, "Input"],
+Cell[222630, 6068, 103, 1, 45, "Text"],
+Cell[222736, 6071, 1742, 39, 742, "Input"],
+Cell[224481, 6112, 95, 1, 45, "Text"],
+Cell[224579, 6115, 3118, 76, 423, "Input"],
+Cell[CellGroupData[{
+Cell[227722, 6195, 69, 1, 45, "Input"],
+Cell[227794, 6198, 94, 1, 67, "Output"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }

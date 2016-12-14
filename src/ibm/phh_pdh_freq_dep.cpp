@@ -360,7 +360,7 @@ void mortality(size_t n_hawk, bool mortality_hawk)
 
 
     // sample local kid
-    if (gsl_rng_uniform(r) < d)
+    if (gsl_rng_uniform(r) < 1.0 - d)
     {
         create_kid(
                 MetaPop[random_patch_id].locals[gsl_rng_uniform_int(r, Npp)],

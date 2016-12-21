@@ -28,13 +28,22 @@ struct rparams
     // VARS
 };
 
-double bound(double val)
+double bound0(double val)
+{
+    if (val < 0)
+    {
+        val = 0.001;
+    }
+
+    return(val);
+}
+
+double bound01(double val)
 {
     val = val < 0 ? 0.0001 : val > 1.0 ? 0.9999 : val;
 
     return(val);
 }
-
 
 // recursions of all the patch frequencies
 int psys_recur(void *params, gsl_vector *f)
@@ -189,10 +198,10 @@ int main (int argc, char **argv)
         // selection gradients
         selgrads(&paramstruct, x_selgrad);
 
-        bool condition_phh2 = (fabs(paramstruct.phh2 - gsl_vector_get(x_selgrad, 0)) < 1e-7 || paramstruct.phh2 >= 0.999) || paramstruct.phh2 <= 0.001;
         bool condition_phh1 = (fabs(paramstruct.phh1 - gsl_vector_get(x_selgrad, 0)) < 1e-7 || paramstruct.phh1 >= 0.999) || paramstruct.phh1 <= 0.001;
-        bool condition_pdh1 = (fabs(paramstruct.pdh1 - gsl_vector_get(x_selgrad, 0)) < 1e-7 || paramstruct.pdh1 >= 0.999) || paramstruct.pdh1 <= 0.001;
-        bool condition_pdh0 = (fabs(paramstruct.pdh0 - gsl_vector_get(x_selgrad, 0)) < 1e-7 || paramstruct.pdh0 >= 0.999) || paramstruct.pdh0 <= 0.001;
+        bool condition_phh2 = (fabs(paramstruct.phh2 - gsl_vector_get(x_selgrad, 1)) < 1e-7 || paramstruct.phh2 >= 0.999) || paramstruct.phh2 <= 0.001;
+        bool condition_pdh1 = (fabs(paramstruct.pdh1 - gsl_vector_get(x_selgrad, 2)) < 1e-7 || paramstruct.pdh1 >= 0.999) || paramstruct.pdh1 <= 0.001;
+        bool condition_pdh0 = (fabs(paramstruct.pdh0 - gsl_vector_get(x_selgrad, 3)) < 1e-7 || paramstruct.pdh0 >= 0.999) || paramstruct.pdh0 <= 0.001;
 
         if (condition_phh2 && 
                 condition_phh1 && 

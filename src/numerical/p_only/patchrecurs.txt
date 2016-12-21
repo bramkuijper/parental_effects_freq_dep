@@ -13,15 +13,15 @@ df1dt=f(1) + 0.01*(f(0)*(2*(1 - d)*((1 - err)*p + err*p) + d*(2*((1 - err)*p + e
 if (fabs(df0dt-f(0))<1e-7 && fabs(df1dt-f(1))<1e-7)
 {
 
-f(0)=bound(df0dt);
+f(0)=bound01(df0dt);
 
-f(1)=bound(df1dt);
+f(1)=bound01(df1dt);
 
 break;
 }
-f(0)=bound(df0dt);
+f(0)=bound01(df0dt);
 
-f(1)=bound(df1dt);
+f(1)=bound01(df1dt);
 
 }
 gsl_vector_set(f,0,df0dt);

@@ -2,6 +2,7 @@ library("lattice")
 library("colorRamps")
 
 the.data <- read.table("summary_phh_pdh_new.csv",sep=";",header=T)
+the.data <- read.table("fluhbuh.csv",sep=";",header=T)
 
 
 if (!("v" %in% names(the.data)))
@@ -23,6 +24,7 @@ print(wireframe(phh ~ c * v | d * err,
                             { strip.default(strip.levels=T,...) },
 #                    data=the.data[the.data$c >= the.data$v,],
                     zlim=c(0,1),
+                    lwd=0.1,
                     default.scales=list(arrows=F)
                     )
             )
@@ -35,7 +37,7 @@ print(wireframe(pdh ~ c * v | d * err,
                             { strip.default(strip.levels=T,...) },
 #                    data=the.data[the.data$c >= the.data$v,],
                     zlim=c(0,1),
-
+                    lwd=0.1,
                     default.scales=list(arrows=F)
                     )
             )
@@ -46,7 +48,8 @@ print(levelplot((phh - pdh) ~ c * v | d * err,
                     data=the.data[the.data$v < the.data$c,],
                     strip=function(strip.levels,...) 
                             { strip.default(strip.levels=T,...) },
-                    col.regions=matlab.like
+                    col.regions=matlab.like,
+                    lwd=0.1,
 #                    data=the.data[the.data$c >= the.data$v,],
                             #                    zlim=c(0,1),
                             #                    default.scales=list(arrows=F)
@@ -62,6 +65,7 @@ print(wireframe((.5 * f_1 + (1-f_0-f_1)) ~ c * v | d * err,
                             { strip.default(strip.levels=T,...) },
 #                    data=the.data[the.data$c >= the.data$v,],
                     zlim=c(0,1),
+                    lwd=0.1,
                     default.scales=list(arrows=F)
                     )
             )
@@ -76,6 +80,7 @@ print(cloud(vh_1 + vh_2 + vd_0 + vd_1 ~ c * v | d * err,
 #                    data=the.data[the.data$c >= the.data$v,],
                     auto.key=T,
                     pch=".",
+                    lwd=0.1,
                     default.scales=list(arrows=F)
                     )
             )
@@ -89,6 +94,7 @@ print(cloud(vd_0 + vd_1 ~ c * v | d * err,
 #                    data=the.data[the.data$c >= the.data$v,],
                     auto.key=T,
                     pch=".",
+                    lwd=0.1,
                     default.scales=list(arrows=F)
                     )
             )

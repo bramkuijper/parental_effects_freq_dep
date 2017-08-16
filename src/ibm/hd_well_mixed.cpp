@@ -32,7 +32,7 @@ time_t total_time;  // track the total time the simulation is running
 
 size_t generation = 0; // track the current generation (for debugging only)
 
-size_t skip2 = numgen; // intervals of data output
+size_t skip = 10; // intervals of data output
 
 // clutch size 
 size_t clutch = 10;
@@ -43,11 +43,9 @@ size_t Nh = 0;
 size_t NdNext = 0;
 size_t NhNext = 0;
 
-// mortality of maladapted junior breeders in both envts
-double c[2] = {0,0}; 
-
-// mortality of adapted junior breeders in both envts
-double C[2] = {0,0}; 
+// v, c
+double v = 0;
+double c = 0;
 
 // mutation rates
 double mu_h = 0.01;
@@ -71,7 +69,6 @@ struct Individual
 // definie populations
 Individual Pop[N];
 Individual PopNext[N];
-Individual NextGen[N*clutch];
 
 // give the outputfile a unique name
 string filename("sim_hd");
@@ -82,14 +79,12 @@ ofstream DataFile(filename_new.c_str());  // output file
 // the parameters
 void init_arguments(int argc, char *argv[])
 {
-    c[0] = atof(argv[1]);
-    c[1] = atof(argv[2]);
-    C[0] = atof(argv[3]);
-    C[1] = atof(argv[4]);
-    mu_h = atof(argv[5]);
-    sdmu_h = atof(argv[6]);
-    init_pH = atof(argv[7]);
-    init_pD = atof(argv[7]);
+    v = atof(argv[1]);
+    c = atof(argv[2]);
+    mu_h = atof(argv[3]);
+    sdmu_h = atof(argv[4]);
+    init_pH = atof(argv[5]);
+    init_pD = atof(argv[6]);
 }
 
 // initialization function, runs at start of sim
@@ -124,7 +119,7 @@ void init_pop()
             Pop[i].pD[allele_i] = init_pD;
         }
 
-        Pop[i].is_hawk = gsl_rng_uniform(rng_r) < 0.5;
+        Pop[i].is_hawk = gsl_rng_uniform(rng_r) < v/c;
 
         Pop[i].payoff = 0;
         Pop[i].cumul_payoff = 0;
@@ -151,19 +146,19 @@ void create_kid(Individual &mother, Individual &Kid)
     assert(mother.pD[0] >= 0);
     assert(mother.pD[0] <= 1.0);
 
-    assert(mother.pH[] >= 0);
+    assert(mother.pH[1] >= 0);
     assert(mother.pH[1] <= 1.0);
     assert(mother.pD[1] >= 0);
     assert(mother.pD[1] <= 1.0);
 
     if (mother.is_hawk)
     {
-        Kid.is_hawk = gsl_rng_uniform(r) < 
+        Kid.is_hawk = gsl_rng_uniform(rng_r) < 
             0.5 * (mother.pH[0] + mother.pH[1]);
     }
     else
     {
-        Kid.is_hawk = gsl_rng_uniform(r) < 
+        Kid.is_hawk = gsl_rng_uniform(rng_r) < 
             1.0 - 0.5 * (mother.pD[0] + mother.pD[1]);
     }
 
@@ -206,6 +201,9 @@ void survive()
         }
         while (ind1 == ind2);
 
+        Pop[ind1].payoff = c;
+        Pop[ind2].payoff = c;
+
         // calculate payoffs
         if (Pop[ind1].is_hawk)
         {
@@ -213,37 +211,34 @@ void survive()
             {
                 if (gsl_rng_uniform(rng_r) < 0.5)
                 {
-                    Pop[ind1].payoff = v;
-                    Pop[ind2].payoff = c;
+                    Pop[ind1].payoff += v;
+                    Pop[ind2].payoff += -c;
                 }
                 else
                 {
-                    Pop[ind1].payoff = c;
-                    Pop[ind2].payoff = v;
+                    Pop[ind1].payoff += -c;
+                    Pop[ind2].payoff += v;
                 }
             }
             else
             {
-                Pop[ind1].payoff = v;
-                Pop[ind2].payoff = 0;
+                Pop[ind1].payoff += v;
+                Pop[ind2].payoff += 0;
             }
         }
         else // ind1 is dove
         {
             if (Pop[ind2].is_hawk) 
             {
-                Pop[ind1].payoff = 0;
-                Pop[ind2].payoff = v;
+                Pop[ind1].payoff += 0;
+                Pop[ind2].payoff += v;
             }
             else // both dove
             {
-                Pop[ind1].payoff = .5 * v;
-                Pop[ind2].payoff = .5 * v;
+                Pop[ind1].payoff += .5 * v;
+                Pop[ind2].payoff += .5 * v;
             }
         }
-
-        // ok remove pairs
-        --Npairstogo;
 
         // remove individual 1
         PopNext[Nnext++] = Pop[ind1];
@@ -253,7 +248,9 @@ void survive()
         PopNext[Nnext++] = Pop[ind2];
         Pop[ind2] = Pop[--Ntot];
 
-        assert(Nnext <= Ntot);
+//        cout << Nnext << " " << pair_i << Ntot << endl;
+
+        assert(Nnext <= N);
     }
 
     double sum_payoffs = 0;
@@ -275,7 +272,7 @@ void survive()
         // select from cumulative distribution
         for (size_t ind_j = 0; ind_j < N; ++ind_j)
         {
-            if (PopNext[ind_j].cumul_payoff <= rand_val)
+            if (rand_val <= PopNext[ind_j].cumul_payoff)
             {
                 Individual Kid;
                 create_kid(PopNext[ind_j], Kid);
@@ -293,100 +290,69 @@ void survive()
 void write_data()
 {
     // get variance and means
-    double p1,p2,d,vard,varp1,varp2;
-    double meanp1 = 0;
-    double meanp2 = 0;
-    double ssp1 = 0;
-    double ssp2 = 0;
+    double pH, pD;
+    double meanpH = 0;
+    double meanpD = 0;
+    double sspH = 0;
+    double sspD = 0;
+    double freq_hawk = 0;
+    double varpH, varpD;
 
-    double meand = 0;
-    double ssd = 0;
-
-    // loop through patches and individuals
+    // loop through all individuals
     // and get stats on genotypes and patch freqs.
-    for (size_t i = 0; i < Npatch; ++i)
+    for (size_t ind_i = 0; ind_i < N; ++ind_i)
     {
-        for (size_t j = 0; j < Npp; ++j)
-        {
-            d = 0.5 * (MetaPop[i].locals[j].d[0] + MetaPop[i].locals[j].d[1]);
-            p1 = 0.5 * (MetaPop[i].locals[j].p1[0] + MetaPop[i].locals[j].p1[1]);
-            p2 = .5 * (MetaPop[i].locals[j].p2[0] + MetaPop[i].locals[j].p2[1]);
+        pH = 0.5 * (Pop[ind_i].pH[0] + Pop[ind_i].pH[1]);
+        pD = 0.5 * (Pop[ind_i].pD[0] + Pop[ind_i].pD[1]);
 
-            meanp1+=p1;
-            meanp2+=p2;
-            meand+=d;
-            ssp1+=p1*p1;
-            ssp2+=p2*p2;
-            ssd+=d*d;
-        }    
+        freq_hawk += Pop[ind_i].is_hawk;
+
+        meanpH+=pH;
+        meanpD+=pD;
+        sspH+=pH*pH;
+        sspD+=pD*pD;
     }
 
     DataFile << generation << ";"; 
 
-    // write down all the patch frequency combinations
-    for (size_t envt_i = 0; envt_i < 2; ++envt_i)
-    {
-        for (size_t n_adapted = 0; n_adapted <= 2; ++n_adapted)
-        {
-            DataFile << setprecision(5) << (double)Npatches[envt_i][n_adapted] / Npatch << ";";
-        }
-    }
+    meanpH /= N;
+    meanpD /= N;
+    varpH = sspH / N - meanpH * meanpH;
+    varpD = sspD / N - meanpD * meanpD;
 
-    meanp1 /= Npatch * 2;
-    meanp2 /= Npatch * 2;
-    meand /= Npatch * 2;
-    vard = ssd / (Npatch * 2) - meand*meand;
-    varp1 = ssp1 / (Npatch * 2) - meanp1*meanp1;
-    varp2 = ssp2 / (Npatch * 2) - meanp2*meanp2;
+    freq_hawk /= N;
 
     DataFile 
-        << setprecision(5) << meanp1 << ";"
-        << setprecision(5) << meanp2 << ";"
-        << setprecision(5) << varp1 << ";"
-        << setprecision(5) << varp2 << ";"
-        << setprecision(5) << meand << ";"
-        << setprecision(5) << vard << endl;
+        << setprecision(5) << meanpH << ";"
+        << setprecision(5) << meanpD << ";"
+        << setprecision(5) << varpH << ";"
+        << setprecision(5) << varpD << ";" 
+        << setprecision(5) << freq_hawk << ";" 
+        << endl;
 }
 
 // headers of the datafile
 void write_data_headers()
 {
-    DataFile << "generation;";
-
-    for (size_t envt_i = 0; envt_i < 2; ++envt_i)
-    {
-        for (size_t n_adapted = 0; n_adapted <= 2; ++n_adapted)
-        {
-            DataFile << setprecision(5) << "f_" << (envt_i+1) << "_" << (n_adapted + 1) << ";";
-        }
-    }
-    
-    DataFile << "meanp1;meanp2;varp1;varp2;meand;vard" << endl;
+    DataFile << "generation;meanpH;meanpD;varpH;varpD;freq_hawk;" << endl;
 }
 
 // parameters at the end of the sim
 void write_parameters()
 {
     total_time = time(NULL) - total_time;
-    DataFile << endl << endl << "d0;" << d0 << endl
-                << "type;" << "phenotype-dependent" << endl
-                << "p0;" << h0 << endl
+    DataFile << endl << endl 
+                << "v;" << v << endl
+                << "c;" << c << endl
+                << "init_pH;" << init_pH << endl
+                << "init_pD;" << init_pD << endl
                 << "mu_h;" << mu_h << endl
                 << "sdmu_h;" << sdmu_h << endl
                 << "numgen;" << numgen << endl
-                << "k;" << k << endl
-                << "s1;" << envt_switch[0] << endl
-                << "s2;" << envt_switch[1] << endl
-                << "c1;" << c[0] << endl
-                << "c2;" << c[1] << endl
-                << "C1;" << C[0] << endl
-                << "C2;" << C[1] << endl
                 << "seed;" << seed << endl
-                << "Npatches;" << Npatches << endl
+                << "N;" << N << endl
                 << "runtime;" << total_time << endl;
 }
-
-
 
 
 // main function body
@@ -399,6 +365,12 @@ int main(int argc, char **argv)
 
     for (generation = 0; generation < numgen; ++generation)
     {
+        survive();
+
+        if (generation % skip == 0)
+        {
+            write_data();
+        }
     } 
 
     write_data();

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-./xfreq_dep  0.1  0.25 0.8 0.5
+./xall_p_freq_dep  0.1  0.25 0.8 0.5
 
 
 #    d = atof(argv[1]);

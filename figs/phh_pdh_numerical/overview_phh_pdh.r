@@ -44,12 +44,13 @@ print(wireframe(pdh ~ c * v | d * err,
 dev.off()
 
 pdf("overview_phh_pdh_diff.pdf")
-print(levelplot((phh - pdh) ~ c * v | d * err,
-                    data=the.data[the.data$v < the.data$c,],
+print(wireframe((phh - pdh) ~ c * v | d * err,
+                    data=the.data[the.data$d == 1,],
                     strip=function(strip.levels,...) 
                             { strip.default(strip.levels=T,...) },
-                    col.regions=matlab.like,
+                            #col.regions=matlab.like,
                     lwd=0.1,
+                    default.scales=list(arrows=F)
 #                    data=the.data[the.data$c >= the.data$v,],
                             #                    zlim=c(0,1),
                             #                    default.scales=list(arrows=F)

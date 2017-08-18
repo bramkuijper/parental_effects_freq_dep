@@ -20,10 +20,15 @@ f = open(filename)
 fl = f.readlines()
 f.close()
 
-nrow = len(fl)-9
+parline = 0
 
+for i in reversed(range(0, len(fl))):
 
-data = pd.read_csv(filename, sep=";", nrows=nrow)
+    if re.match("^\d.*",fl[i].strip()) is not None:
+        parline = i
+        break
+
+data = pd.read_csv(filename, sep=";", nrows=i)
 
 
 data["f_2"] = pd.Series(list(itertools.repeat(np.nan,len(data.index))))

@@ -250,7 +250,7 @@ int main (int argc, char **argv)
         gsl_vector_set(phh_range, 0, paramstruct.phh);
         gsl_vector_set(pdh_range, 0, paramstruct.pdh);
 
-        if (iter % 1 == 0)
+        if (iter % 1000 == 0)
         {
             write_data(&paramstruct,iter);
         }

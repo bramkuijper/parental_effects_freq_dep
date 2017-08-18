@@ -3,8 +3,11 @@
 import numpy as np
 
 step = 0.05
-vvals = list(np.arange(0.01, 1.0, step))
-cvals = list(np.arange(0.01, 1.0, step))
+#vvals = list(np.arange(0.01, 1.0, step))
+#cvals = list(np.arange(0.01, 1.0, step))
+
+vvals = [ 0.25 ]
+cvals = [ 0.8 ]
 
 d = [ 0.1, 0.5, 1.0 ]
 
@@ -15,7 +18,7 @@ phh_init = [ 0.5 ]
 
 ctr = 0
 
-error = [ 0, 0.02 ] 
+error = [ 0.02 ] 
 
 for v_i in vvals:
     for c_i in cvals:

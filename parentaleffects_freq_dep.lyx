@@ -9,13 +9,7 @@
 \definecolor{darkblue}{RGB}{0,4,106}
 \usepackage{doi}
 \usepackage{amsmath}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\pgfplotsset{width=7cm}
 \allowdisplaybreaks
-\tikzset{test/.style={font=\sffamily\huge}}
-\DeclareMathVersion{sfnums}
-\usepackage{apjfonts}
 \end_preamble
 \options numbers,sort&compress
 \use_default_options true
@@ -104,12 +98,12 @@ Parental effects when selection is frequency-dependent
 
 \begin_layout Author
 Bram Kuijper
-\begin_inset Formula $^{1,2,3,6}$
+\begin_inset Formula $^{1,3}$
 \end_inset
 
  & Rufus A.
  Johnstone
-\begin_inset Formula $^{4,5,7}$
+\begin_inset Formula $^{2,4}$
 \end_inset
 
 
@@ -134,30 +128,8 @@ l Sciences, University of Exeter, Penryn Campus, Penryn TR10 9EZ, UK
 \end_layout
 
 \begin_layout Enumerate
-CoMPLEX, Centre for Mathematics and Physics in the Life Sciences and Experimenta
-l Biology, University College London, Physics Building, Gower Street, London
- WC1E 6BT, UK
-\end_layout
-
-\begin_layout Enumerate
-Department of Genetics, Evolution and Environment, University College London,
- Darwin Building, Gower Street, London, WC1E 6BT
-\end_layout
-
-\begin_layout Enumerate
-XX
-\end_layout
-
-\begin_layout Enumerate
-YY
-\end_layout
-
-\begin_layout Enumerate
-a.l.w.kuijper@exeter.ac.uk
-\end_layout
-
-\begin_layout Enumerate
-r.b.hoyle@soton.ac.uk
+Department of Zoology, University of Cambridge, Downing Street, Cambridge
+ CB2 3EJ, UK
 \end_layout
 
 \begin_layout Standard
@@ -174,10 +146,6 @@ clearpage
 \end_inset
 
 
-\end_layout
-
-\begin_layout Abstract
-I
 \end_layout
 
 \begin_layout Abstract
@@ -200,12 +168,34 @@ clearpage
 Introduction
 \end_layout
 
+\begin_layout Standard
+Parental effects have recently received a lot of attention, as they could
+ potentially lead to extended inheritance blabla.
+\end_layout
+
+\begin_layout Standard
+Read 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hines1979"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 The model
 \end_layout
 
 \begin_layout Section
 Results
+\end_layout
+
+\begin_layout Standard
+Overall, Figure XX shows that hawk parents often induce their offspring
+ to be dove, while dove parents often induce their offspring to be hawk.
+ In order to understand what is going on, it might be 
 \end_layout
 
 \begin_layout Section
@@ -465,6 +455,21 @@ Reproductive value dynamics
 \begin_inset Formula 
 \begin{align*}
 \frac{\mathrm{d}v_{h,1}}{\mathrm{d}t} & =m_{h,1}f_{1}\left(1-d\right)\left(1-p_{h\rightarrow h,1}\right)\left(v_{d,0}-v_{h,1}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then have the matrix
+\begin_inset Formula 
+\begin{align*}
+\mathbf{ABCDEF} & =\left[\begin{array}{cc}
+a_{11} & a_{12}\\
+a_{21} & a_{22}
+\end{array}\right]
 \end{align*}
 
 \end_inset

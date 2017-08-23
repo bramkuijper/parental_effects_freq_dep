@@ -1,7 +1,6 @@
 library("lattice")
 library("colorRamps")
 
-#the.data <- read.table("all_sims.csv",sep=";",header=T)
 the.data <- read.table("summary_sims_phh_pdh.csv",sep=";",header=T)
 
 the.data[,"vc"] <- the.data$v / the.data$c
@@ -35,7 +34,7 @@ print(wireframe(meanpdh ~ c * v | d,
 dev.off()
 
 pdf("summary_sims_freq_hawk.pdf",width=10,height=7)
-print(cloud((.5 * f_1 + (1-f_0-f_1)) + vc ~ c * v | d,
+print(cloud((.5 * f_1 + (1-f_0-f_1)) ~ c * v | d,
                 data=the.data,
                 #                data=the.data,
                 pch=21,

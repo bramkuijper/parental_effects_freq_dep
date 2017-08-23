@@ -7,6 +7,11 @@ import functools
 import itertools
 import re, string, sys
 import numpy as np
+import subprocess
+import matplotlib
+matplotlib.use('pgf')
+
+
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 from matplotlib import rcParams
@@ -18,17 +23,22 @@ from matplotlib import cm
 plt.style.use('base')
 
 rcParams['axes.labelsize'] = 15
-rcParams['text.usetex'] = True
-rcParams['font.family'] = 'sans-serif'
 
-# see http://stackoverflow.com/questions/2537868/sans-serif-math-with-latex-in-matplotlib 
-rcParams['text.latex.preamble'] = [
-       r'\usepackage{siunitx}',   # i need upright \micro symbols, but you need...
-       r'\sisetup{detect-all}',   # ...this to force siunitx to actually use your fonts
-       r'\usepackage{helvet}',    # set the normal font here
-       r'\usepackage{sansmath}',  # load up the sansmath so that math -> helvet
-       r'\sansmath'               # <- tricky! -- gotta actually tell tex to use!
-]  
+pgf_with_custom_preamble = {
+    "font.family": "serif", # use serif/main font for text elements
+    "svg.fonttype": "path", # use serif/main font for text elements
+    "text.usetex": True,    # use inline math for ticks
+    "pgf.rcfonts": False,   # don't setup fonts from rc parameters
+    "pgf.preamble": [
+         "\\usepackage{units}",         # load additional packages
+         "\\usepackage{metalogo}",
+         "\\usepackage[math-style = TeX]{unicode-math}",  # unicode math setup
+         r"\setmathfont{Myriad Pro}",
+         r"\setmathfont[range=\mathit]{[MyriadPro-It.otf]}",
+         r"\setmainfont[UprightFont={[MyriadPro-Regular.otf]},ItalicFont={[MyriadPro-It.otf]}]{Myriad Pro}", # serif font via preamble
+         ]
+}
+matplotlib.rcParams.update(pgf_with_custom_preamble)
 
 # initialize the figure
 fig = plt.figure(figsize=(13.5,5))
@@ -43,6 +53,15 @@ gs = gridspec.GridSpec(
         height_ratios=heights)
 
 data = pd.read_csv("summary_phaseplot_d.csv", sep=";")
+data["v"] = 1.0 - data["mh_1"]
+data["v"] = data["v"].round(decimals=3)
+
+data["c"] = 2.0 * data["mh_2"] + data["v"] - 2
+data["c"] = data["c"].round(decimals=3)
+
+
+print(data["c"].unique())
+print(data["v"].unique())
 
 def process_file(filename):
 
@@ -69,8 +88,10 @@ def block(
         xlabel=None,
         ylabel=None,
         title=None,
+        plot_empty=False,
         xtick_labels=True,
         ytick_labels=False,
+        ind_label=True,
         selection_dict={}):
 
     # get the global dataset
@@ -119,6 +140,8 @@ def block(
             color="grey",
             rotation=45)
 
+    line_color="#007aff"
+
     # iterate over rows
     for index, row in subset.iterrows():
 
@@ -129,12 +152,33 @@ def block(
         # process the data file
         subdata = process_file(filename)
 
-        ax.plot(subdata["pdh"],
-                subdata["phh"],
-#                color="#4cb5ff",
-                color="#007aff",
-#                color="#ff3000",
-                linewidth=1)
+        # for long lines plot an arrow
+        if subdata.shape[0] > 5:
+
+            rows_arrow_1 = subdata.iloc[[1]]
+            rows_arrow_2 = subdata.iloc[[2]]
+
+            if not plot_empty:
+                ax.arrow(x=float(rows_arrow_1["pdh"]),
+                        y=float(rows_arrow_1["phh"]),
+                        head_width=0.01, 
+                        head_length=0.01,
+                        linewidth=.5,
+                        fc=line_color, 
+                        ec=line_color,
+                        color=line_color,
+                        dx=float(rows_arrow_2["pdh"]) - float(rows_arrow_1["pdh"]),
+                        dy=float(rows_arrow_2["phh"]) - float(rows_arrow_1["phh"])
+                        )
+
+
+        if not plot_empty:
+            ax.plot(subdata["pdh"],
+                    subdata["phh"],
+                    color=line_color,
+    #                color="#4cb5ff",
+    #                color="#ff3000",
+                    linewidth=1)
     
     # iterate over rows and drow endpoints
     # and arrows
@@ -146,14 +190,18 @@ def block(
         # process the data file
         subdata = process_file(filename)
 
+
         last_row = subdata.iloc[-1:]
         
-        ax.plot(last_row["pdh"],
-                last_row["phh"],
-                marker="o",
-                markerfacecolor="white",
-                markeredgecolor="black",
-                linewidth=1)
+        if not plot_empty:
+            ax.plot(last_row["pdh"],
+                    last_row["phh"],
+                    marker="o",
+                    markerfacecolor="white",
+                    markeredgecolor="black",
+                    linewidth=1)
+
+
 
     # do axis labeling
     ax.xaxis.set_minor_locator(AutoMinorLocator(4))
@@ -178,9 +226,10 @@ def block(
 
     if not ytick_labels:
         ax.yaxis.set_ticklabels([])
-    
-    ax.set_title(loc="left", 
-            label=string.ascii_uppercase[col], position=(0.05,1.02))
+   
+    if ind_label:
+        ax.set_title(loc="left", 
+                label=string.ascii_uppercase[col], position=(0.05,1.02))
     
     if title is not None: 
         ax.set_title(
@@ -192,7 +241,7 @@ block(
         ytick_labels=True,
         title="Limited dispersal: $d = 0.1$",
         selection_dict={"d": 0.1},
-        ylabel=r"Proportion of hawks by hawk parents, $p_{H}$")
+        ylabel=r"Proportion of hawk young by hawk parents, $p_{H}$")
 
 block(
         row=0,
@@ -200,7 +249,7 @@ block(
         ytick_labels=False,
         title="Modest dispersal: $d = 0.5$",
         selection_dict={"d": 0.5},
-        xlabel=r"Proportion of hawks by dove parents, $p_{D}$")
+        xlabel=r"Proportion of hawk young by dove parents, $p_{D}$")
 
 block(
         row=0,
@@ -209,7 +258,83 @@ block(
         title="Well-mixed population: $d = 1.0$",
         selection_dict={"d": 1.0})
 
+format = "svg"
 plt.tight_layout()
+graphname = "graph_phase_plot_dispersal"
+graphname_pdf = graphname + ".pdf"
+graphname_svg = graphname + ".svg"
+plt.savefig(graphname_pdf, format="pdf", transparent=True)
 
-format = "pdf"
-plt.savefig("graph_phase_plot_dispersal." + format, format=format)
+
+if format == "svg":
+    subprocess.call(["pdf2svg",graphname_pdf,graphname_svg])
+
+# each plot individually
+for disp in [ 0.1, 0.5, 1.0]:
+
+    fig = plt.figure(figsize=(5,5))
+
+    widths = [ 1 ]
+    heights = [ 1 ]
+
+    gs = gridspec.GridSpec(
+            len(heights), 
+            len(widths), 
+            width_ratios=widths, 
+            height_ratios=heights)
+
+
+    block(
+            row=0,
+            col=0,
+            ind_label=False,
+            ytick_labels=True,
+            selection_dict={"d": disp},
+            xlabel=r"Proportion of hawk young by dove parents, $p_{D}$",
+            ylabel=r"Proportion of hawk young by hawk parents, $p_{H}$")
+
+
+    format = "svg"
+    plt.tight_layout()
+    graphname = "graph_phase_plot_dispersal_d_" + str(disp)
+    graphname_pdf = graphname + ".pdf"
+    graphname_svg = graphname + ".svg"
+    plt.savefig(graphname_pdf, format="pdf", transparent=True)
+
+    if format == "svg":
+        subprocess.call(["pdf2svg",graphname_pdf,graphname_svg])
+
+
+# now plot the empty plot for illustraiton
+fig = plt.figure(figsize=(5,5))
+
+widths = [ 1 ]
+heights = [ 1 ]
+
+gs = gridspec.GridSpec(
+        len(heights), 
+        len(widths), 
+        width_ratios=widths, 
+        height_ratios=heights)
+
+
+block(
+        row=0,
+        col=0,
+        ind_label=False,
+        plot_empty=True,
+        ytick_labels=True,
+        selection_dict={"d": 0.1},
+        xlabel=r"Proportion of hawk young by dove parents, $p_{D}$",
+        ylabel=r"Proportion of hawk young by hawk parents, $p_{H}$")
+
+
+format = "svg"
+plt.tight_layout()
+graphname = "graph_phase_plot_dispersal_empty_d_" + str(disp)
+graphname_pdf = graphname + ".pdf"
+graphname_svg = graphname + ".svg"
+plt.savefig(graphname_pdf, format="pdf", transparent=True)
+
+if format == "svg":
+    subprocess.call(["pdf2svg",graphname_pdf,graphname_svg])

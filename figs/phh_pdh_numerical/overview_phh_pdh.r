@@ -2,7 +2,7 @@ library("lattice")
 library("colorRamps")
 
 the.data <- read.table("summary_phh_pdh_new.csv",sep=";",header=T)
-the.data <- read.table("fluhbuh.csv",sep=";",header=T)
+the.data <- read.table("summary_phh_pdh_even_newer.csv",sep=";",header=T)
 
 
 if (!("v" %in% names(the.data)))
